@@ -3,6 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PompeiiNovenaCalendar.Presentation.Views.DaysListPage"
              Title="DaysListPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Pozostało 50 dni"
+                     Order="Primary"
+                     Priority="0"
+                     />
+    </ContentPage.ToolbarItems>
     <CollectionView ItemsSource="{Binding Days}">
         <CollectionView.ItemTemplate>
             <DataTemplate>
