@@ -7,12 +7,27 @@
         <CollectionView.ItemTemplate>
             <DataTemplate>
                 <StackLayout Padding="10" >
-                    <Label Text="{Binding Date, StringFormat='{0:dddd, dd MMMM}'}" FontSize="Medium" />
-                    <StackLayout Orientation="Horizontal">
-                        <CheckBox IsChecked="{Binding MysteriesStatus[0]}" IsEnabled="{Binding CanEdit}" />
-                        <CheckBox IsChecked="{Binding MysteriesStatus[1]}" IsEnabled="{Binding CanEdit}" />
-                        <CheckBox IsChecked="{Binding MysteriesStatus[2]}" IsEnabled="{Binding CanEdit}" />
-                        <CheckBox IsChecked="{Binding MysteriesStatus[3]}" IsEnabled="{Binding CanEdit}" />
+                    <StackLayout Orientation="Horizontal" Margin="30, 10" >
+                        <Label Text="{Binding Day, StringFormat='{0:dddd, dd MMMM}'}" FontSize="Medium" TextColor="White" HorizontalTextAlignment="Center" Margin="20, 0" />
+                        <Label Text="{Binding StatusName}" FontSize="Medium" TextColor="White" HorizontalTextAlignment="End" />
+                    </StackLayout>
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal" >
+                            <Label Text="Tajemnice radosne " FontSize="Medium" TextColor="White" />
+                            <CheckBox IsChecked="{Binding MysteriesStatus[0]}" IsEnabled="{Binding CanEdit}" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" >
+                            <Label Text="Tajemnice bolesne " FontSize="Medium" TextColor="White" />
+                            <CheckBox IsChecked="{Binding MysteriesStatus[0]}" IsEnabled="{Binding CanEdit}" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" >
+                            <Label Text="Tajemnice chwalebne " FontSize="Medium" TextColor="White" />
+                            <CheckBox IsChecked="{Binding MysteriesStatus[0]}" IsEnabled="{Binding CanEdit}" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" >
+                            <Label Text="Tajemnice światła (opcjonalne) " FontSize="Medium" TextColor="White" />
+                            <CheckBox IsChecked="{Binding MysteriesStatus[0]}" IsEnabled="{Binding CanEdit}" />
+                        </StackLayout>
                     </StackLayout>
                 </StackLayout>
             </DataTemplate>

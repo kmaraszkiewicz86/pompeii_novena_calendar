@@ -14,7 +14,7 @@
         Route="MainPage" />
 
     <ShellContent
-        Title="Home"
+        Title="DaysListPage"
         ContentTemplate="{DataTemplate views:DaysListPage}"
         Route="DaysListPage" />
 
