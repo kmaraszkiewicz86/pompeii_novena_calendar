@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.Infra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.Shared", "..\PompeiiNovenaCalendar.Shared\PompeiiNovenaCalendar.Shared.csproj", "{CFFB3A23-09C6-4515-9685-CF5AF934BCEB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.Application", "..\PompeiiNovenaCalendar.Application\PompeiiNovenaCalendar.Application.csproj", "{D0B77F10-CA49-4121-8128-EFF7B545F2AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{CFFB3A23-09C6-4515-9685-CF5AF934BCEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFFB3A23-09C6-4515-9685-CF5AF934BCEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFFB3A23-09C6-4515-9685-CF5AF934BCEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0B77F10-CA49-4121-8128-EFF7B545F2AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0B77F10-CA49-4121-8128-EFF7B545F2AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0B77F10-CA49-4121-8128-EFF7B545F2AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0B77F10-CA49-4121-8128-EFF7B545F2AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
