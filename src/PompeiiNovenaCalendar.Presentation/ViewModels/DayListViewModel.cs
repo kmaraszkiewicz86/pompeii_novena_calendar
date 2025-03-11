@@ -19,12 +19,8 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
             set => SetProperty(ref _days, value);
         }
 
-        public IRelayCommand<DayRecordModel> SaveCommand => new RelayCommand<DayRecordModel>(async (DayRecordModel record) => await ToogleRossarySelectionAsync(record));
-
-        public DayListViewModel()
-        {
-            LoadDays();//todo: move to add it to load page event
-        }
+        public IRelayCommand<DayRecordModel> SaveCommand => new AsyncRelayCommand<DayRecordModel>(ToogleRossarySelectionAsync!);
+        public IRelayCommand LoadCommand => new RelayCommand(LoadDays);
 
         private void LoadDays()
         {

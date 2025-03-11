@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
-using PompeiiNovenaCalendar.Shared.DependencyInjection;
+using PompeiiNovenaCalendar.DependencyInjection;
+using PompeiiNovenaCalendar.Extensions;
 
 namespace PompeiiNovenaCalendar;
 
@@ -16,7 +17,9 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
-		builder.Services.AddAppDbContext("Data Source=app.db");
+		builder.Services.ConfigureDatabaseLogic("Data Source=app.db")
+			.AddCqrsHandlers()
+            .AddViewModels();
 
 #if DEBUG
         builder.Logging.AddDebug();

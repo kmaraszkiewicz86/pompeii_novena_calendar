@@ -63,8 +63,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\PompeiiNovenaCalendar.Presentation\PompeiiNovenaCalendar.Presentation.csproj" />
-	  <ProjectReference Include="..\PompeiiNovenaCalendar.Shared\PompeiiNovenaCalendar.Shared.csproj" />
+	  <ProjectReference Include="..\PompeiiNovenaCalendar.DependencyInjection\PompeiiNovenaCalendar.DependencyInjection.csproj" />
 	</ItemGroup>
 
 </Project>

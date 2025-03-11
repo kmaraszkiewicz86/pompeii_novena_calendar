@@ -1,6 +1,8 @@
-﻿namespace PompeiiNovenaCalendar.Domain.Repositories
+﻿using PompeiiNovenaCalendar.Domain.Models.Commands;
+
+namespace PompeiiNovenaCalendar.Domain.Repositories
 {
-    public interface IRosarySelectionRepository
+    public interface IRosarySelectionRepository : IRepository
     {
         Task ToogleRossarySelectionAsync(SaveRosarySelectionCommand command);
     }

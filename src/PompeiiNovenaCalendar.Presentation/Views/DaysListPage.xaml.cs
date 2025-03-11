@@ -4,9 +4,9 @@ namespace PompeiiNovenaCalendar.Presentation.Views;
 
 public partial class DaysListPage : ContentPage
 {
-	public DaysListPage()
+	public DaysListPage(DayListViewModel bindingContext)
 	{
 		InitializeComponent();
-        BindingContext = new DayListViewModel();
+        BindingContext = bindingContext;
     }
 }
