@@ -1,13 +1,13 @@
 ﻿using AutoFixture;
 using FluentResults;
 using NSubstitute;
-using PompeiiNovenaCalendar.Application.Handlers.SaveRosarySelection;
+using PompeiiNovenaCalendar.Application.Handlers.Commands;
 using PompeiiNovenaCalendar.Application.Tests.Fixtures;
-using PompeiiNovenaCalendar.Domain.Models.Commands;
 using PompeiiNovenaCalendar.Domain.Repositories;
+using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
 using Shouldly;
 
-namespace PompeiiNovenaCalendar.Application.Tests.Handlers.SaveRosarySelection
+namespace PompeiiNovenaCalendar.Application.Tests.Handlers.Commands
 {
     public class SaveRosarySelectionCommandHandlerUnitTests
     {

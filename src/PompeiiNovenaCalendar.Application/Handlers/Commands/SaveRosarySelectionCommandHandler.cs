@@ -2,10 +2,10 @@
 using FluentValidation.Results;
 using MediatR;
 using PompeiiNovenaCalendar.Application.Validators;
-using PompeiiNovenaCalendar.Domain.Models.Commands;
 using PompeiiNovenaCalendar.Domain.Repositories;
+using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
 
-namespace PompeiiNovenaCalendar.Application.Handlers.SaveRosarySelection
+namespace PompeiiNovenaCalendar.Application.Handlers.Commands
 {
     public class SaveRosarySelectionCommandHandler(SaveRosarySelectionCommandValidator validator, IRosarySelectionRepository repository, IUnitOfWork unitOfWork) : IRequestHandler<SaveRosarySelectionCommand, Result>
     {

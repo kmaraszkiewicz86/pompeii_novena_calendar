@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using PompeiiNovenaCalendar.Application.Handlers.SaveRosarySelection;
+using PompeiiNovenaCalendar.Application.Handlers.Commands;
 using PompeiiNovenaCalendar.Domain.Repositories;
 using PompeiiNovenaCalendar.Infrastructure.Database;
 

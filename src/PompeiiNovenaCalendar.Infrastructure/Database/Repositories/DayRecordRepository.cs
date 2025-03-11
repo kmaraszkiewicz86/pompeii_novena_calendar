@@ -3,10 +3,11 @@ using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
 
 namespace PompeiiNovenaCalendar.Infrastructure.Database.Repositories
 {
-    public class RosarySelectionRepository : IRosarySelectionRepository
+    public class DayRecordRepository : IDayRecordRepository
     {
-        public async Task ToogleRossarySelectionAsync(SaveRosarySelectionCommand command)
+        public Task GenerateInitialDataAsync(GenerateInialDataCommand request)
         {
+            throw new NotImplementedException();
         }
     }
 }

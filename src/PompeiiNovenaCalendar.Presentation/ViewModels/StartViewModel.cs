@@ -1,11 +1,14 @@
 ﻿using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MediatR;
 using PompeiiNovenaCalendar.Presentation.Views;
+using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
+using PompeiiNovenaCalendar.Shared.Models.Handlers.Queries;
 
 namespace PompeiiNovenaCalendar.Presentation.ViewModels
 {
-    public partial class StartViewModel : ObservableObject
+    public partial class StartViewModel(IMediator mediator) : ObservableObject
     {
         private DateTime _selectedDate = DateTime.Today;
 
@@ -15,11 +18,29 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
             set => SetProperty(ref _selectedDate, value);
         }
 
-        public ICommand StartCommand => new RelayCommand(Start);
+        public IRelayCommand PageLoadedCommand => new AsyncRelayCommand(PageLoadedActionAsync);
 
-        private async void Start()
+        public ICommand StartCommand => new AsyncRelayCommand(StartAsync);
+
+        private async Task PageLoadedActionAsync()
         {
-            await Shell.Current.GoToAsync($"{nameof(DaysListPage)}?startDate={SelectedDate}");
+            bool isDataGenerated = await mediator.Send(new CheckIfCalendarWasGeneratedQuery());
+
+            if (!isDataGenerated)
+            {
+                await GoToCalendarAsync();
+            }
+        }
+
+        private async Task StartAsync()
+        {
+            await mediator.Send(new GenerateInialDataCommand(SelectedDate));
+            await GoToCalendarAsync();
+        }
+
+        private async Task GoToCalendarAsync()
+        {
+            await Shell.Current.GoToAsync($"{nameof(DaysListPage)}?startDate={SelectedDate}"); //todo: move Shell.Current it to external class
         }
     }
 }

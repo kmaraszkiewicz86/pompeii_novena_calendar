@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using PompeiiNovenaCalendar.Domain.Models.Commands;
+using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
 
 namespace PompeiiNovenaCalendar.Application.Validators
 {
