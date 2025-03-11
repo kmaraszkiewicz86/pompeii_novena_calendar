@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.Appli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.DependencyInjection", "..\PompeiiNovenaCalendar.DependencyInjection\PompeiiNovenaCalendar.DependencyInjection.csproj", "{9AD6D543-494F-4248-9756-3F89C901CCA3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.Application.Tests", "..\Tests\PompeiiNovenaCalendar.Application.Tests\PompeiiNovenaCalendar.Application.Tests.csproj", "{D02A1876-99AE-4DFC-A9B1-E3F8AEC50F33}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,9 +57,16 @@ Global
 		{9AD6D543-494F-4248-9756-3F89C901CCA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9AD6D543-494F-4248-9756-3F89C901CCA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9AD6D543-494F-4248-9756-3F89C901CCA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D02A1876-99AE-4DFC-A9B1-E3F8AEC50F33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D02A1876-99AE-4DFC-A9B1-E3F8AEC50F33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D02A1876-99AE-4DFC-A9B1-E3F8AEC50F33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D02A1876-99AE-4DFC-A9B1-E3F8AEC50F33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D02A1876-99AE-4DFC-A9B1-E3F8AEC50F33} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B021BB3-5303-4401-A270-45400C2FBA15}

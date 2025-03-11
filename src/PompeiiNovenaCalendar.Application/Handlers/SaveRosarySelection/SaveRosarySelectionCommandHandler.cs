@@ -7,7 +7,7 @@ using PompeiiNovenaCalendar.Domain.Repositories;
 
 namespace PompeiiNovenaCalendar.Application.Handlers.SaveRosarySelection
 {
-    public class SaveRosarySelectionCommandHandler(IRosarySelectionRepository repository, SaveRosarySelectionCommandValidator validator, IUnitOfWork unitOfWork) : IRequestHandler<SaveRosarySelectionCommand, Result>
+    public class SaveRosarySelectionCommandHandler(SaveRosarySelectionCommandValidator validator, IRosarySelectionRepository repository, IUnitOfWork unitOfWork) : IRequestHandler<SaveRosarySelectionCommand, Result>
     {
         public async Task<Result> Handle(SaveRosarySelectionCommand request, CancellationToken cancellationToken)
         {
