@@ -1,4 +1,4 @@
-﻿using PompeiiNovenaCalendar.Domain.Repositories;
+﻿using PompeiiNovenaCalendar.Domain.Database.Repositories;
 using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
 
 namespace PompeiiNovenaCalendar.Infrastructure.Database.Repositories

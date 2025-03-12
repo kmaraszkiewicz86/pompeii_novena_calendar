@@ -1,7 +1,7 @@
 ﻿using AutoFixture;
 using PompeiiNovenaCalendar.Application.Handlers.Commands;
 using PompeiiNovenaCalendar.Application.Validators;
-using PompeiiNovenaCalendar.Domain.Repositories;
+using PompeiiNovenaCalendar.Domain.Database.Repositories;
 
 namespace PompeiiNovenaCalendar.Application.Tests.Fixtures
 {

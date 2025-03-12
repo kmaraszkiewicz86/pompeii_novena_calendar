@@ -1,8 +1,9 @@
-﻿using PompeiiNovenaCalendar.Domain.Repositories;
+﻿using PompeiiNovenaCalendar.Domain.Database;
+using PompeiiNovenaCalendar.Domain.Database.Repositories;
 
 namespace PompeiiNovenaCalendar.Infrastructure.Database.DatabaseQueries
 {
-    public class RosarySelectionQuery : IRosarySelectionQuery
+    public class RosarySelectionQuery(IAppDbQueryContext queryContext) : IRosarySelectionQuery
     {
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace PompeiiNovenaCalendar.Domain.Repositories
+﻿namespace PompeiiNovenaCalendar.Domain.Database.Repositories
 {
     public interface IRosarySelectionQuery : IQuery
     {

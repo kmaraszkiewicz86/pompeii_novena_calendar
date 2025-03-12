@@ -1,5 +1,5 @@
 ﻿using FluentResults;
-using PompeiiNovenaCalendar.Domain.Repositories;
+using PompeiiNovenaCalendar.Domain.Database.Repositories;
 
 namespace PompeiiNovenaCalendar.Infrastructure.Database.Repositories
 {

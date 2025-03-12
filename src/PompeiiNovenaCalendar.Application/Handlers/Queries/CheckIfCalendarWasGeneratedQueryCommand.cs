@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using PompeiiNovenaCalendar.Domain.Repositories;
+using PompeiiNovenaCalendar.Domain.Database.Repositories;
 using PompeiiNovenaCalendar.Shared.Models.Handlers.Queries;
 
 namespace PompeiiNovenaCalendar.Application.Handlers.Queries

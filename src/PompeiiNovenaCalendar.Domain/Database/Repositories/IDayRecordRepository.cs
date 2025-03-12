@@ -1,6 +1,6 @@
 ﻿using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
 
-namespace PompeiiNovenaCalendar.Domain.Repositories
+namespace PompeiiNovenaCalendar.Domain.Database.Repositories
 {
     public interface IDayRecordRepository : IRepository
     {

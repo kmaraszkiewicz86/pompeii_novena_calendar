@@ -3,7 +3,7 @@ using FluentResults;
 using NSubstitute;
 using PompeiiNovenaCalendar.Application.Handlers.Commands;
 using PompeiiNovenaCalendar.Application.Tests.Fixtures;
-using PompeiiNovenaCalendar.Domain.Repositories;
+using PompeiiNovenaCalendar.Domain.Database.Repositories;
 using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
 using Shouldly;
 

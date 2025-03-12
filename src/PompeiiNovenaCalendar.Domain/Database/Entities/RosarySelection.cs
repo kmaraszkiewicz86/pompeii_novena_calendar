@@ -1,4 +1,4 @@
-﻿namespace PompeiiNovenaCalendar.Domain.Entities
+﻿namespace PompeiiNovenaCalendar.Domain.Database.Entities
 {
     public class RosarySelection
     {

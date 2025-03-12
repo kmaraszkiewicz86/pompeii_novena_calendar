@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PompeiiNovenaCalendar.Domain.Entities;
+using PompeiiNovenaCalendar.Domain.Database.Entities;
 
 namespace PompeiiNovenaCalendar.Infrastructure.Database
 {

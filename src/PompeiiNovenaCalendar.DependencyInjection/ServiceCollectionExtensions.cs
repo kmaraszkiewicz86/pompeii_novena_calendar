@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using PompeiiNovenaCalendar.Application.Handlers.Commands;
-using PompeiiNovenaCalendar.Domain.Repositories;
+using PompeiiNovenaCalendar.Domain.Database;
+using PompeiiNovenaCalendar.Domain.Database.Repositories;
 using PompeiiNovenaCalendar.Infrastructure.Database;
 
 namespace PompeiiNovenaCalendar.DependencyInjection
@@ -12,6 +13,8 @@ namespace PompeiiNovenaCalendar.DependencyInjection
         {
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlite(connectionString));
+
+            services.AddTransient<IAppDbQueryContext>(sp => new AppDbQueryContext(connectionString));
 
             services.AddClassesToDependencyInjection(typeof(IQuery));
             services.AddClassesToDependencyInjection(typeof(IRepository));
