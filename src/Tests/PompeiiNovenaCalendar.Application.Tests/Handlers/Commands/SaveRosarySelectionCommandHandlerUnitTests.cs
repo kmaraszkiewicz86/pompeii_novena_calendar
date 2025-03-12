@@ -1,8 +1,8 @@
 ﻿using AutoFixture;
 using FluentResults;
 using NSubstitute;
-using PompeiiNovenaCalendar.Application.Handlers.Commands;
 using PompeiiNovenaCalendar.Application.Tests.Fixtures;
+using PompeiiNovenaCalendar.ApplicationLayer.Handlers.Commands;
 using PompeiiNovenaCalendar.Domain.Database.Repositories;
 using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
 using Shouldly;

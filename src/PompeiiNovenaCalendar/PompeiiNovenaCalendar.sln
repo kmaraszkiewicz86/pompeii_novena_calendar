@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.Infra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.Shared", "..\PompeiiNovenaCalendar.Shared\PompeiiNovenaCalendar.Shared.csproj", "{CFFB3A23-09C6-4515-9685-CF5AF934BCEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.Application", "..\PompeiiNovenaCalendar.Application\PompeiiNovenaCalendar.Application.csproj", "{D0B77F10-CA49-4121-8128-EFF7B545F2AE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.ApplicationLayer", "..\PompeiiNovenaCalendar.Application\PompeiiNovenaCalendar.ApplicationLayer.csproj", "{D0B77F10-CA49-4121-8128-EFF7B545F2AE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.DependencyInjection", "..\PompeiiNovenaCalendar.DependencyInjection\PompeiiNovenaCalendar.DependencyInjection.csproj", "{9AD6D543-494F-4248-9756-3F89C901CCA3}"
 EndProject

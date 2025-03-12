@@ -2,7 +2,7 @@
 using PompeiiNovenaCalendar.Domain.Database.Repositories;
 using PompeiiNovenaCalendar.Shared.Models.Handlers.Queries;
 
-namespace PompeiiNovenaCalendar.Application.Handlers.Queries
+namespace PompeiiNovenaCalendar.ApplicationLayer.Handlers.Queries
 {
     public class CheckIfCalendarWasGeneratedQueryCommand(IDayRecordQuery databaseQuery) : IRequestHandler<CheckIfCalendarWasGeneratedQuery, bool>
     {

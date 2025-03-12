@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MediatR;
 using PompeiiNovenaCalendar.Domain.Models;
-using PompeiiNovenaCalendar.Domain.Models.Commands;
+using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
 
 namespace PompeiiNovenaCalendar.Presentation.ViewModels
 {

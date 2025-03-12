@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
 
-namespace PompeiiNovenaCalendar.Application.Validators
+namespace PompeiiNovenaCalendar.ApplicationLayer.Validators
 {
     public class SaveRosarySelectionCommandValidator : AbstractValidator<SaveRosarySelectionCommand>
     {

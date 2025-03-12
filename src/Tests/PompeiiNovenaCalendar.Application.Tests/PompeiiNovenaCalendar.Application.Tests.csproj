@@ -20,7 +20,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\PompeiiNovenaCalendar.Application\PompeiiNovenaCalendar.Application.csproj" />
+	  <ProjectReference Include="..\..\PompeiiNovenaCalendar.Application\PompeiiNovenaCalendar.ApplicationLayer.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

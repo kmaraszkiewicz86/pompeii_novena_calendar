@@ -11,7 +11,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\PompeiiNovenaCalendar.Application\PompeiiNovenaCalendar.Application.csproj" />
+		<ProjectReference Include="..\PompeiiNovenaCalendar.Application\PompeiiNovenaCalendar.ApplicationLayer.csproj" />
 		<ProjectReference Include="..\PompeiiNovenaCalendar.Domain\PompeiiNovenaCalendar.Domain.csproj" />
 		<ProjectReference Include="..\PompeiiNovenaCalendar.Infrastructure\PompeiiNovenaCalendar.Infrastructure.csproj" />
 	</ItemGroup>

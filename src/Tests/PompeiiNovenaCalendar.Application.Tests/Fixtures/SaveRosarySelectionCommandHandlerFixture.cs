@@ -1,6 +1,6 @@
 ﻿using AutoFixture;
-using PompeiiNovenaCalendar.Application.Handlers.Commands;
-using PompeiiNovenaCalendar.Application.Validators;
+using PompeiiNovenaCalendar.ApplicationLayer.Handlers.Commands;
+using PompeiiNovenaCalendar.ApplicationLayer.Validators;
 using PompeiiNovenaCalendar.Domain.Database.Repositories;
 
 namespace PompeiiNovenaCalendar.Application.Tests.Fixtures
