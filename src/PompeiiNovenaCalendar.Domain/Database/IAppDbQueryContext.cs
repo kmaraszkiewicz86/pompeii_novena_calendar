@@ -1,6 +1,7 @@
 ﻿namespace PompeiiNovenaCalendar.Domain.Database
 {
-    public interface IAppDbQueryContext : IDisposable
+    public interface IAppDbQueryContext
     {
+        Task<ISqliteConnectionConnection> CreateConnectionAsync();
     }
 }

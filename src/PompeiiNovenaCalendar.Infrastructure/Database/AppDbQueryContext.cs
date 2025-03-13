@@ -3,19 +3,14 @@ using PompeiiNovenaCalendar.Domain.Database;
 
 namespace PompeiiNovenaCalendar.Infrastructure.Database
 {
-    public class AppDbQueryContext : IAppDbQueryContext
+    public class AppDbQueryContext(string databasePath) : IAppDbQueryContext
     {
-        public SqliteConnection Connection { get; }
-
-        public AppDbQueryContext(string databasePath)
+        public async Task<ISqliteConnectionConnection> CreateConnectionAsync()
         {
-            Connection = new SqliteConnection($"Data Source={databasePath}");
-            Connection.Open();
-        }
+            SqliteConnection connection = new ($"Data Source={databasePath}");
+            await connection.OpenAsync();
 
-        public void Dispose()
-        {
-            Connection.Close();
+            return new SqliteConnectionConnection(connection);
         }
     }
 }

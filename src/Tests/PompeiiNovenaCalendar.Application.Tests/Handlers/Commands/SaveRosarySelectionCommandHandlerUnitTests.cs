@@ -14,7 +14,55 @@ namespace PompeiiNovenaCalendar.Application.Tests.Handlers.Commands
         private readonly SaveRosarySelectionCommandHandlerFixture _fixture = new();
 
         [Fact]
-        public async Task HandleAsync_WhenQueryIsValid_ReturnsSuccessResult()
+        public async Task HandleAsync_WhenQueryIsValid_ShouldReturnsInvalidResult()
+        {
+            // Arrange
+
+            // Arrange
+            SaveRosarySelectionCommandHandler handler = _fixture.GetServiceUnderTest();
+            SaveRosarySelectionCommand query = new(-1, -1, true);
+            var unitOfWork = _fixture.Freeze<IUnitOfWork>();
+            unitOfWork.SaveChangesAsync().Returns(Task.FromResult(Result.Fail("test")));
+
+            // Act
+            Result result = await handler.Handle(query, CancellationToken.None);
+            // Assert
+            result.IsSuccess.ShouldBeFalse();
+        }
+
+        [Fact]
+        public async Task HandleAsync_WhenUnityOfWorkReturnInvalidResult_ShouldReturnsInvalidResult()
+        {
+            // Arrange
+            SaveRosarySelectionCommandHandler handler = _fixture.GetServiceUnderTest();
+            SaveRosarySelectionCommand query = new(1, 1, true);
+            var unitOfWork = _fixture.Freeze<IUnitOfWork>();
+            unitOfWork.SaveChangesAsync().Returns(Task.FromResult(Result.Fail("test")));
+
+            // Act
+            Result result = await handler.Handle(query, CancellationToken.None);
+            // Assert
+            result.IsSuccess.ShouldBeFalse();
+        }
+
+        [Fact]
+        public async Task HandleAsync_WhenValidationSuccess_ShouldCallGenerateInitialDataAsyncMethod()
+        {
+            // Arrange
+            SaveRosarySelectionCommandHandler handler = _fixture.GetServiceUnderTest();
+            SaveRosarySelectionCommand query = new(1, 1, true);
+            _fixture.Freeze<IUnitOfWork>().SaveChangesAsync().Returns(Result.Ok());
+            var repository = _fixture.Freeze<IRosarySelectionRepository>();
+
+            // Act
+            await handler.Handle(query, CancellationToken.None);
+
+            // Assert
+            await repository.Received(1).ToogleRossarySelectionAsync(query);
+        }
+
+        [Fact]
+        public async Task HandleAsync_WhenValidationSuccess_ShouldReturnValidResult()
         {
             // Arrange
             SaveRosarySelectionCommand query = new(1, 1, true);
@@ -26,21 +74,6 @@ namespace PompeiiNovenaCalendar.Application.Tests.Handlers.Commands
             Result result = await handler.Handle(query, CancellationToken.None);
             // Assert
             result.IsSuccess.ShouldBeTrue();
-        }
-
-        [Fact]
-        public async Task HandleAsync_WhenQueryIsValidButUnitOfWorkReturnFalseResponse_ReturnsSuccessResult()
-        {
-            // Arrange
-            SaveRosarySelectionCommand query = new(1, 1, true);
-            var unitOfWork = _fixture.Freeze<IUnitOfWork>();
-            unitOfWork.SaveChangesAsync().Returns(Task.FromResult(Result.Fail("test")));
-
-            SaveRosarySelectionCommandHandler handler = _fixture.GetServiceUnderTest();
-            // Act
-            Result result = await handler.Handle(query, CancellationToken.None);
-            // Assert
-            result.IsSuccess.ShouldBeFalse();
         }
     }
 }

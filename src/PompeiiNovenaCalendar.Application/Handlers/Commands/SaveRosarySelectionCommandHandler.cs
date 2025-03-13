@@ -13,7 +13,7 @@ namespace PompeiiNovenaCalendar.ApplicationLayer.Handlers.Commands
         {
             ValidationResult validationResult = validator.Validate(request);
 
-            if (validationResult.IsValid)
+            if (!validationResult.IsValid)
             {
                 return Result.Fail(validationResult.Errors.Select(e => e.ErrorMessage)?.ToArray() ?? []);
             }

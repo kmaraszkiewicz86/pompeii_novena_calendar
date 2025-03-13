@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using PompeiiNovenaCalendar.DependencyInjection;
 using PompeiiNovenaCalendar.Extensions;
+using PompeiiNovenaCalendar.Infrastructure.Database;
 
 namespace PompeiiNovenaCalendar;
 
@@ -19,12 +21,22 @@ public static class MauiProgram
 
 		builder.Services.ConfigureDatabaseLogic("Data Source=app.db")
 			.AddCqrsHandlers()
-            .AddViewModels();
+			.AddViewModels()
+			.AddServices();
 
 #if DEBUG
         builder.Logging.AddDebug();
 #endif
 
-		return builder.Build();
-	}
+        var app = builder.Build();
+
+        // Tworzenie bazy i stosowanie migracji
+        using (var scope = app.Services.CreateScope())
+        {
+            var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            dbContext.Database.Migrate();
+        }
+
+        return app;
+    }
 }

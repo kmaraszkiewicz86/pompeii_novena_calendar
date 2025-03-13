@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using PompeiiNovenaCalendar.ApplicationLayer.Handlers.Commands;
 using PompeiiNovenaCalendar.Domain.Database;
 using PompeiiNovenaCalendar.Domain.Database.Repositories;
+using PompeiiNovenaCalendar.Domain.Services.Interfaces;
 using PompeiiNovenaCalendar.Infrastructure.Database;
 
 namespace PompeiiNovenaCalendar.DependencyInjection
@@ -13,8 +14,6 @@ namespace PompeiiNovenaCalendar.DependencyInjection
         {
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlite(connectionString));
-
-            services.AddTransient<IAppDbQueryContext>(sp => new AppDbQueryContext(connectionString));
 
             services.AddClassesToDependencyInjection(typeof(IQuery));
             services.AddClassesToDependencyInjection(typeof(IRepository));
@@ -28,6 +27,13 @@ namespace PompeiiNovenaCalendar.DependencyInjection
             {
                 config.RegisterServicesFromAssembly(typeof(SaveRosarySelectionCommandHandler).Assembly);
             });
+
+            return services;
+        }
+
+        public static IServiceCollection AddServices(this IServiceCollection services)
+        {
+            services.AddClassesToDependencyInjection(typeof(IService));
 
             return services;
         }

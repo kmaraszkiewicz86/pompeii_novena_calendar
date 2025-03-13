@@ -1,5 +1,4 @@
-﻿using System.Windows.Input;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MediatR;
 using PompeiiNovenaCalendar.Presentation.Views;
@@ -20,7 +19,7 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
 
         public IRelayCommand PageLoadedCommand => new AsyncRelayCommand(PageLoadedActionAsync);
 
-        public ICommand StartCommand => new AsyncRelayCommand(StartAsync);
+        public IRelayCommand StartCommand => new AsyncRelayCommand(StartAsync);
 
         private async Task PageLoadedActionAsync()
         {
@@ -40,7 +39,7 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
 
         private async Task GoToCalendarAsync()
         {
-            await Shell.Current.GoToAsync($"{nameof(DaysListPage)}?startDate={SelectedDate}"); //todo: move Shell.Current it to external class
+            await Shell.Current.GoToAsync($"{nameof(DaysListPage)}?startDate={SelectedDate}");
         }
     }
 }

@@ -7,9 +7,16 @@ namespace PompeiiNovenaCalendar.ApplicationLayer.Validators
     {
         public SaveRosarySelectionCommandValidator()
         {
-            RuleFor(x => x.Id).NotEmpty();
-            RuleFor(x => x.RosaryId).NotEmpty();
-            RuleFor(x => x.IsChecked).NotEmpty();
+            RuleFor(x => x.Id)
+                .GreaterThan(0)
+                .NotEmpty();
+
+            RuleFor(x => x.RosaryId)
+                .GreaterThan(0)
+                .NotEmpty();
+
+            RuleFor(x => x.IsChecked)
+                .NotEmpty();
         }
     }
 }

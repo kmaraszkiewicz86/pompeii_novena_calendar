@@ -1,9 +1,10 @@
-﻿using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
+﻿using PompeiiNovenaCalendar.Domain.Database.Entities;
+using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
 
 namespace PompeiiNovenaCalendar.Domain.Database.Repositories
 {
     public interface IDayRecordRepository : IRepository
     {
-        Task GenerateInitialDataAsync(GenerateInialDataCommand request);
+        Task AddRangeAsync(ICollection<DayRecord> dayRecords);
     }
 }

@@ -1,13 +1,14 @@
-﻿using PompeiiNovenaCalendar.Domain.Database.Repositories;
+﻿using PompeiiNovenaCalendar.Domain.Database.Entities;
+using PompeiiNovenaCalendar.Domain.Database.Repositories;
 using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
 
 namespace PompeiiNovenaCalendar.Infrastructure.Database.Repositories
 {
-    public class DayRecordRepository : IDayRecordRepository
+    public class DayRecordRepository(AppDbContext dbContext) : IDayRecordRepository
     {
-        public Task GenerateInitialDataAsync(GenerateInialDataCommand request)
+        public async Task AddRangeAsync(ICollection<DayRecord> dayRecords)
         {
-            throw new NotImplementedException();
+            await dbContext.DayRecords.AddRangeAsync(dayRecords);
         }
     }
 }
