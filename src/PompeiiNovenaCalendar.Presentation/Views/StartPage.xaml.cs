@@ -4,9 +4,17 @@ namespace PompeiiNovenaCalendar.Presentation.Views;
 
 public partial class StartPage : ContentPage
 {
-	public StartPage(StartViewModel bindingContext)
+    private readonly StartViewModel _bindingContext;
+
+
+    public StartPage(StartViewModel bindingContext)
 	{
 		InitializeComponent();
-        BindingContext = bindingContext;
+        BindingContext = _bindingContext = bindingContext;
+    }
+
+    private void ContentPage_Appearing(object sender, EventArgs e)
+    {
+        _bindingContext.PageLoadedCommand.Execute(null);
     }
 }

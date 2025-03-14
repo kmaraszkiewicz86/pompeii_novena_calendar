@@ -25,7 +25,7 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
         {
             bool isDataGenerated = await mediator.Send(new CheckIfCalendarWasGeneratedQuery());
 
-            if (!isDataGenerated)
+            if (isDataGenerated)
             {
                 await GoToCalendarAsync();
             }

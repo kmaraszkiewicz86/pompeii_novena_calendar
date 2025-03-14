@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using PompeiiNovenaCalendar.ApplicationLayer.Handlers.Commands;
 using PompeiiNovenaCalendar.Domain.Database;
 using PompeiiNovenaCalendar.Domain.Database.Repositories;
 using PompeiiNovenaCalendar.Domain.Services.Interfaces;
 using PompeiiNovenaCalendar.Infrastructure.Database;
+using PompeiiNovenaCalendar.Infrastructure.Database.DatabaseQueries;
 
 namespace PompeiiNovenaCalendar.DependencyInjection
 {
@@ -15,8 +17,10 @@ namespace PompeiiNovenaCalendar.DependencyInjection
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlite(connectionString));
 
-            services.AddClassesToDependencyInjection(typeof(IQuery));
-            services.AddClassesToDependencyInjection(typeof(IRepository));
+            services.AddSingleton<IAppDbQueryContext>(provider => new AppDbQueryContext(connectionString));
+
+            services.AddClassesToDependencyInjection(typeof(IQuery), typeof(DayRecordQuery).Assembly);
+            services.AddClassesToDependencyInjection(typeof(IRepository), typeof(DayRecordQuery).Assembly);
 
             return services;
         }
@@ -38,9 +42,10 @@ namespace PompeiiNovenaCalendar.DependencyInjection
             return services;
         }
 
-        private static IServiceCollection AddClassesToDependencyInjection(this IServiceCollection services, Type type)
+        private static IServiceCollection AddClassesToDependencyInjection(this IServiceCollection services, Type type, Assembly? assembly = null)
         {
-            var assembly = type.Assembly;
+            if (assembly is null)
+                assembly = type.Assembly;
 
             var types = assembly.GetTypes()
                 .Where(t => t is { IsClass: true, IsAbstract: false }

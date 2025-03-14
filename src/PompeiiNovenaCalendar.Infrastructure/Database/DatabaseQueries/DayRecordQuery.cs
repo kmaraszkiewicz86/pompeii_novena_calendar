@@ -10,7 +10,7 @@ namespace PompeiiNovenaCalendar.Infrastructure.Database.DatabaseQueries
         {
             await using ISqliteConnectionConnection connection = await queryContext.CreateConnectionAsync();
 
-            int count = await connection.Connection.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM DayRecord");
+            int count = await connection.Connection.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM DayRecords");
 
             return count > 0;
         }

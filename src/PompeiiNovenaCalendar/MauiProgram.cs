@@ -8,21 +8,24 @@ namespace PompeiiNovenaCalendar;
 
 public static class MauiProgram
 {
-	public static MauiApp CreateMauiApp()
-	{
-		var builder = MauiApp.CreateBuilder();
-		builder
-			.UseMauiApp<App>()
-            .ConfigureFonts(fonts =>
-			{
-				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-			});
+    public static MauiApp CreateMauiApp()
+    {
+        string dbPath = Path.Combine(FileSystem.AppDataDirectory, "app.db");
 
-		builder.Services.ConfigureDatabaseLogic("Data Source=app.db")
-			.AddCqrsHandlers()
-			.AddViewModels()
-			.AddServices();
+        var builder = MauiApp.CreateBuilder();
+        builder
+            .UseMauiApp<App>()
+            .ConfigureFonts(fonts =>
+            {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+            });
+
+        builder.Services.ConfigureDatabaseLogic($"Data Source={dbPath}")
+            .AddCqrsHandlers()
+            .AddViewModels()
+            .AddViews()
+            .AddServices();
 
 #if DEBUG
         builder.Logging.AddDebug();
