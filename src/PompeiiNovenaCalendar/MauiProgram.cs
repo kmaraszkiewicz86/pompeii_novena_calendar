@@ -25,7 +25,8 @@ public static class MauiProgram
             .AddCqrsHandlers()
             .AddViewModels()
             .AddViews()
-            .AddServices();
+            .AddServices()
+            .AddValidators();
 
 #if DEBUG
         builder.Logging.AddDebug();
