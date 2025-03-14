@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PompeiiNovenaCalendar.Presentation.Views.DaysListPage"
+             Appearing="ContentPage_Appearing"
              Title="DaysListPage">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Pozostało 50 dni"
@@ -18,22 +19,18 @@
                         <Label Text="{Binding StatusName}" FontSize="Medium" TextColor="White" HorizontalTextAlignment="End" />
                     </StackLayout>
                     <StackLayout>
-                        <StackLayout Orientation="Horizontal" >
-                            <Label Text="Tajemnice radosne " FontSize="Medium" TextColor="White" />
-                            <CheckBox IsChecked="{Binding MysteriesStatus[0]}" IsEnabled="{Binding CanEdit}" />
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal" >
-                            <Label Text="Tajemnice bolesne " FontSize="Medium" TextColor="White" />
-                            <CheckBox IsChecked="{Binding MysteriesStatus[0]}" IsEnabled="{Binding CanEdit}" />
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal" >
-                            <Label Text="Tajemnice chwalebne " FontSize="Medium" TextColor="White" />
-                            <CheckBox IsChecked="{Binding MysteriesStatus[0]}" IsEnabled="{Binding CanEdit}" />
-                        </StackLayout>
-                        <StackLayout Orientation="Horizontal" >
-                            <Label Text="Tajemnice światła (opcjonalne) " FontSize="Medium" TextColor="White" />
-                            <CheckBox IsChecked="{Binding MysteriesStatus[0]}" IsEnabled="{Binding CanEdit}" />
-                        </StackLayout>
+
+                        <CollectionView ItemsSource="{Binding RosarySelections}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Orientation="Horizontal" >
+                                        <Label Text="{Binding Name}" FontSize="Medium" TextColor="White" />
+                                        <CheckBox IsChecked="{Binding IsCompleted}" IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type StackLayout}}, Path=BindingContext.CanEdit}" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
                     </StackLayout>
                 </StackLayout>
             </DataTemplate>

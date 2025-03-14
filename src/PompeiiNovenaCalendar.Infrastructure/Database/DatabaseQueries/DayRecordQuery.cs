@@ -2,6 +2,7 @@
 using PompeiiNovenaCalendar.Domain.Database;
 using PompeiiNovenaCalendar.Domain.Database.Entities;
 using PompeiiNovenaCalendar.Domain.Database.Repositories;
+using PompeiiNovenaCalendar.Domain.Models;
 
 namespace PompeiiNovenaCalendar.Infrastructure.Database.DatabaseQueries
 {
@@ -16,7 +17,7 @@ namespace PompeiiNovenaCalendar.Infrastructure.Database.DatabaseQueries
             return count > 0;
         }
 
-        public async Task<IEnumerable<DayRecord>> GetDayRecordsWithRosarySelectionsAndTypesAsync()
+        public async Task<IEnumerable<DayRecordModel>> GetAllDayRecordsAsync()
         {
             await using ISqliteConnectionConnection connection = await queryContext.CreateConnectionAsync();
 
@@ -30,7 +31,7 @@ namespace PompeiiNovenaCalendar.Infrastructure.Database.DatabaseQueries
                 LEFT JOIN RosaryTypes rt ON rs.RosaryTypeId = rt.Id
                 ORDER BY dr.Date";
 
-            var dayRecords = (await connection.Connection.QueryAsync<DayRecord, RosarySelection, RosaryType, DayRecord>(
+            IEnumerable<DayRecord> dayRecords = (await connection.Connection.QueryAsync<DayRecord, RosarySelection, RosaryType, DayRecord>(
                 sql,
                 (dayRecord, rosarySelection, rosaryType) =>
                 {
@@ -45,7 +46,19 @@ namespace PompeiiNovenaCalendar.Infrastructure.Database.DatabaseQueries
                 splitOn: "RosarySelectionId, RosaryTypeId" 
             )).Distinct().ToList();
 
-            return [.. dayRecords];
+            //todo: move it to mapperly mapper
+            return dayRecords.Select(d => new DayRecordModel
+            {
+                Id = d.Id,
+                Day = d.Date,
+                IsCompleted = d.IsCompleted,
+                RosarySelections = d.RosarySelections.Select(rs => new RosarySelectionModel
+                {
+                    Id = rs.Id,
+                    Name = rs.RosaryType.Name,
+                    IsCompleted = rs.IsCompleted
+                }).ToArray()
+            });
 
         }
     }
