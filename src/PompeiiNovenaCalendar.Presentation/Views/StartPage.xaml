@@ -6,6 +6,12 @@
              Title="StartPage">
 
     <VerticalStackLayout Padding="20">
+        <Label Text="{Binding ErrorMessage}" 
+               IsVisible="{Binding IsValid}"
+               FontSize="Medium" 
+               TextColor="#F0544F"
+               Margin="20"
+               HorizontalTextAlignment="Center" />
         <Label Text="Wybierz datę rozpoczęcia nowenny:" FontSize="Medium"/>
         <DatePicker Date="{Binding SelectedDate}" />
         <Button Text="Dalej" Command="{Binding StartCommand}" />

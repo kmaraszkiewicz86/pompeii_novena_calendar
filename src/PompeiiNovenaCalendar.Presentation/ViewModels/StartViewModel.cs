@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using FluentResults;
 using MediatR;
 using PompeiiNovenaCalendar.Presentation.Views;
 using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
@@ -17,6 +18,20 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
             set => SetProperty(ref _selectedDate, value);
         }
 
+        private string _errorMessage = string.Empty;
+
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                SetProperty(ref _errorMessage, value);
+                OnPropertyChanged(nameof(IsValid));
+            }
+        }
+
+        private bool IsValid => string.IsNullOrEmpty(ErrorMessage);
+
         public IRelayCommand PageLoadedCommand => new AsyncRelayCommand(PageLoadedActionAsync);
 
         public IRelayCommand StartCommand => new AsyncRelayCommand(StartAsync);
@@ -33,7 +48,14 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
 
         private async Task StartAsync()
         {
-            await mediator.Send(new GenerateInialDataCommand(SelectedDate));
+            Result result = await mediator.Send(new GenerateInialDataCommand(SelectedDate));
+
+            if (result.IsFailed)
+            {
+                ErrorMessage = "An error occurred while generating the calendar. Please try again.";
+                return;
+            }
+
             await GoToCalendarAsync();
         }
 
