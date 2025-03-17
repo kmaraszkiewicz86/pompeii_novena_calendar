@@ -10,13 +10,15 @@ public class NovennaDaysGeneratorTests
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IDayRecordRepository _repository;
+    private readonly IRosaryTypesQuery _rosaryTypesQuery;
     private readonly NovennaDaysGenerator _generator;
 
     public NovennaDaysGeneratorTests()
     {
         _unitOfWork = Substitute.For<IUnitOfWork>();
         _repository = Substitute.For<IDayRecordRepository>();
-        _generator = new NovennaDaysGenerator(_unitOfWork, _repository);
+        _rosaryTypesQuery = Substitute.For<IRosaryTypesQuery>();
+        _generator = new NovennaDaysGenerator(_unitOfWork, _repository, _rosaryTypesQuery);
     }
 
     [Fact]
@@ -39,6 +41,12 @@ public class NovennaDaysGeneratorTests
         // Arrange
         var startDate = new DateTime(2024, 3, 1, 0, 0, 0, DateTimeKind.Utc);
         GenerateInialDataCommand command = new(new DateTime(2024, 3, 1, 0, 0, 0, DateTimeKind.Utc));
+        _rosaryTypesQuery.GetAllRosaryTypesAsync().Returns([
+            new RosaryType { Id = 1, Name = "Tajemnice radosne" }, 
+            new RosaryType { Id = 2, Name = "Tajemnice bolesne" }, 
+            new RosaryType { Id = 3, Name = "Tajemnice chwalebne" }, 
+            new RosaryType { Id = 4, Name = "Tajemnice światła" } 
+        ]);
 
         // Act
         await _generator.GenerateInitialDataAsync(command);
@@ -46,6 +54,7 @@ public class NovennaDaysGeneratorTests
         // Assert
         await _repository.Received(1).AddRangeAsync(Arg.Is<List<DayRecord>>(list =>
             list.Count == 54 &&
+            list.All(l => l.RosarySelections.Count == 4) &&
             list[0].Date == startDate &&
             list[53].Date == startDate.AddDays(53)
         ));

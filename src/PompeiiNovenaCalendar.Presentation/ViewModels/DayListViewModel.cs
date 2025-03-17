@@ -10,9 +10,23 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
 {
     public class DayListViewModel(IMediator mediator) : ObservableObject
     {
-        private ObservableCollection<DayRecordModel> _days = new();
+        private int _daysLengthToEnd = 0;
 
-        public ObservableCollection<DayRecordModel> Days
+        public int DaysLengthToEnd
+        {
+            get => _daysLengthToEnd;
+            set
+            {
+                SetProperty(ref _daysLengthToEnd, value);
+                OnPropertyChanged(nameof(DaysLengthToEndText));
+            }
+        }
+
+        public string DaysLengthToEndText => $"Pozostało {DaysLengthToEnd} dni do końca";
+
+        private ObservableCollection<DayRecordCollectionModel> _days = new();
+
+        public ObservableCollection<DayRecordCollectionModel> Days
         {
             get => _days;
             set => SetProperty(ref _days, value);
@@ -20,12 +34,13 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
 
         public IRelayCommand<DayRecordModel> SaveCommand => new AsyncRelayCommand<DayRecordModel>(ToogleRossarySelectionAsync!);
         public IRelayCommand LoadCommand => new AsyncRelayCommand(LoadDaysAsync);
+        public IRelayCommand GetDaysLengthToEndCommand => new AsyncRelayCommand(GetDaysLengthToEndAsync);
 
         private async Task LoadDaysAsync()
         {
-            IEnumerable<DayRecordModel> days = await mediator.Send(new GetAllDayRecordsAsyncQuery());
+            IEnumerable<DayRecordCollectionModel> days = await mediator.Send(new GetAllDayRecordsAsyncQuery());
 
-            foreach (DayRecordModel day in days) 
+            foreach (DayRecordCollectionModel day in days) 
             {
                 Days.Add(day);
             }
@@ -34,7 +49,13 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
         private async Task ToogleRossarySelectionAsync(DayRecordModel record)
         {
             await mediator.Send(new SaveRosarySelectionCommand(record.Id, 1, true));
+            await GetDaysLengthToEndAsync();
             await LoadDaysAsync();
+        }
+
+        private async Task GetDaysLengthToEndAsync()
+        {
+            DaysLengthToEnd = await mediator.Send(new GetDaysLengthToEndQuery());
         }
     }
 }

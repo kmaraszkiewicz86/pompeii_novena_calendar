@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
-        public ICollection<RosarySelection> RosarySelections { get; set; } = default!;
+        public ICollection<RosarySelection> RosarySelections { get; set; } = [];
         public bool IsCompleted { get; set; }
     }
 }

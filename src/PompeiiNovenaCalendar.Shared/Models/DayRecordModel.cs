@@ -6,10 +6,12 @@
 
         public DateTime Day { get; set; }
 
-        public string StatusName => IsCompleted ? "Wykonany" : "Niewykonany"; //change it to icon
+        public int RossarySelectionId { get; set; }
 
-        public RosarySelectionModel[] RosarySelections { get; set; } = default!;
+        public string RossaryTypeName { get; set; } = string.Empty;
 
-        public bool IsCompleted { get; set; }
+        public bool IsRossarySelectionCompleted { get; set; }
+
+        public bool IsDayCompleted { get; set; }
     }
 }

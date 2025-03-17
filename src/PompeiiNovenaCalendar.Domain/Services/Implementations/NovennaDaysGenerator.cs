@@ -6,12 +6,14 @@ using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
 
 namespace PompeiiNovenaCalendar.Domain.Services.Implementations
 {
-    public class NovennaDaysGenerator(IUnitOfWork unitOfWork, IDayRecordRepository repository) : INovennaDaysGenerator
+    public class NovennaDaysGenerator(IUnitOfWork unitOfWork, IDayRecordRepository repository, IRosaryTypesQuery rosaryTypesQuery) : INovennaDaysGenerator
     {
         public const int NovennaDayLenght = 54;
 
         public async Task<Result> GenerateInitialDataAsync(GenerateInialDataCommand request)
         {
+            RosaryType[] rosaryTypes = await rosaryTypesQuery.GetAllRosaryTypesAsync();
+
             List<DayRecord> dayRecords = new();
 
             for (int i = 0; i < NovennaDayLenght; i++)
@@ -19,16 +21,14 @@ namespace PompeiiNovenaCalendar.Domain.Services.Implementations
                 var date = request.fromDate.AddDays(i);
                 dayRecords.Add(new()
                 {
+                    Id = i + 1,
                     Date = date,
                     IsCompleted = false,
-                    RosarySelections = new List<RosarySelection>
+                    RosarySelections = [.. rosaryTypes.Select(rt => new RosarySelection
                     {
-                        new()
-                        {
-                            RosaryTypeId = 1,
-                            IsCompleted = false
-                        }
-                    }
+                        RosaryTypeId = rt.Id,
+                        DayRecordId = i + 1
+                    })]
                 });
             }
 
@@ -37,3 +37,5 @@ namespace PompeiiNovenaCalendar.Domain.Services.Implementations
         }
     }
 }
+
+

@@ -1,4 +1,5 @@
-﻿using PompeiiNovenaCalendar.Domain.Database.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PompeiiNovenaCalendar.Domain.Database.Entities;
 using PompeiiNovenaCalendar.Domain.Database.Repositories;
 
 namespace PompeiiNovenaCalendar.Infrastructure.Database.Repositories

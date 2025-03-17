@@ -5,7 +5,7 @@
              Appearing="ContentPage_Appearing"
              Title="DaysListPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Pozostało 50 dni"
+        <ToolbarItem Text="{Binding DaysLengthToEndText}"
                      Order="Primary"
                      Priority="0"
                      />
@@ -15,8 +15,8 @@
             <DataTemplate>
                 <StackLayout Padding="10" >
                     <StackLayout Orientation="Horizontal" Margin="30, 10" >
-                        <Label Text="{Binding Day, StringFormat='{0:dddd, dd MMMM}'}" FontSize="Medium" TextColor="White" HorizontalTextAlignment="Center" Margin="20, 0" />
-                        <Label Text="{Binding StatusName}" FontSize="Medium" TextColor="White" HorizontalTextAlignment="End" />
+                        <Label Text="{Binding Day, StringFormat='{0:dddd, dd MMMM}'}" FontSize="Medium" HorizontalTextAlignment="Center" Margin="20, 0" />
+                        <Label Text="{Binding StatusName}" FontSize="Medium" HorizontalTextAlignment="End" />
                     </StackLayout>
                     <StackLayout>
 
@@ -24,8 +24,8 @@
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <StackLayout Orientation="Horizontal" >
-                                        <Label Text="{Binding Name}" FontSize="Medium" TextColor="White" />
                                         <CheckBox IsChecked="{Binding IsCompleted}" IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type StackLayout}}, Path=BindingContext.CanEdit}" />
+                                        <Label Text="{Binding Name}" FontSize="Medium" />
                                     </StackLayout>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>

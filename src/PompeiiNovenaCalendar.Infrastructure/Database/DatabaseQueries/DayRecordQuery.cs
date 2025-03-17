@@ -17,49 +17,73 @@ namespace PompeiiNovenaCalendar.Infrastructure.Database.DatabaseQueries
             return count > 0;
         }
 
-        public async Task<IEnumerable<DayRecordModel>> GetAllDayRecordsAsync()
+        public async Task<IEnumerable<DayRecordCollectionModel>> GetAllDayRecordsAsync()
         {
             await using ISqliteConnectionConnection connection = await queryContext.CreateConnectionAsync();
 
-            // Zapytanie SQL z trzema tabelami
-            var sql = @"
-                SELECT dr.Id AS DayRecordId, dr.Date, dr.IsCompleted, 
-                       rs.Id AS RosarySelectionId, rs.RosaryTypeId, rs.IsCompleted AS RosarySelectionIsCompleted, 
-                       rt.Id AS RosaryTypeId, rt.Name AS RosaryTypeName
+            var sql = @"SELECT dr.*, rs.*, rt.*
                 FROM DayRecords dr
-                LEFT JOIN RosarySelections rs ON dr.Id = rs.DayRecordId
-                LEFT JOIN RosaryTypes rt ON rs.RosaryTypeId = rt.Id
+                INNER JOIN RosarySelections rs ON dr.Id = rs.DayRecordId
+                INNER JOIN RosaryTypes rt ON rs.RosaryTypeId = rt.Id
                 ORDER BY dr.Date";
 
-            IEnumerable<DayRecord> dayRecords = (await connection.Connection.QueryAsync<DayRecord, RosarySelection, RosaryType, DayRecord>(
+            DayRecordModel[] daysFromDatabase = [.. (await connection.Connection.QueryAsync<DayRecord, RosarySelection, RosaryType, DayRecordModel>(
                 sql,
                 (dayRecord, rosarySelection, rosaryType) =>
                 {
-                    // Mapowanie wyników
-                    if (rosarySelection != null)
+                    return new DayRecordModel
                     {
-                        rosarySelection.RosaryType = rosaryType;
-                        dayRecord.RosarySelections.Add(rosarySelection);
-                    }
-                    return dayRecord;
-                },
-                splitOn: "RosarySelectionId, RosaryTypeId" 
-            )).Distinct().ToList();
+                        Id = dayRecord.Id,
+                        Day = dayRecord.Date,
+                        IsDayCompleted = dayRecord.IsCompleted,
+                        RossarySelectionId = rosarySelection.Id,
+                        RossaryTypeName = rosaryType.Name,
+                        IsRossarySelectionCompleted = rosarySelection.IsCompleted
+                    };
+                }
+            )).Distinct()];
 
-            //todo: move it to mapperly mapper
-            return dayRecords.Select(d => new DayRecordModel
+            return GenerateCollection(daysFromDatabase);
+        }
+
+        public async Task<int> GetDaysLengthToEndAsync()
+        {
+            await using ISqliteConnectionConnection connection = await queryContext.CreateConnectionAsync();
+            
+            var sql = @"SELECT COUNT(*) FROM DayRecords WHERE Date >= @Date";
+
+            return await connection.Connection.ExecuteScalarAsync<int>(sql, new { Date = DateTime.Now.Date });
+        }
+
+        private IEnumerable<DayRecordCollectionModel> GenerateCollection(DayRecordModel[] daysFromDatabase)
+        {
+            List<DayRecordCollectionModel> days = [];
+
+            foreach (DayRecordModel dayFromDb in daysFromDatabase)
             {
-                Id = d.Id,
-                Day = d.Date,
-                IsCompleted = d.IsCompleted,
-                RosarySelections = d.RosarySelections.Select(rs => new RosarySelectionModel
-                {
-                    Id = rs.Id,
-                    Name = rs.RosaryType.Name,
-                    IsCompleted = rs.IsCompleted
-                }).ToArray()
-            });
+                DayRecordCollectionModel? day = days.FirstOrDefault(d => d.Id == dayFromDb.Id);
 
+                if (day is null)
+                {
+                    day = new DayRecordCollectionModel
+                    {
+                        Id = dayFromDb.Id,
+                        Day = dayFromDb.Day,
+                        IsCompleted = dayFromDb.IsDayCompleted
+                    };
+
+                    days.Add(day);
+                }
+
+                day.RosarySelections.Add(new RosarySelectionModel
+                {
+                    Id = dayFromDb.RossarySelectionId,
+                    Name = dayFromDb.RossaryTypeName,
+                    IsCompleted = dayFromDb.IsRossarySelectionCompleted
+                });
+            }
+
+            return days;
         }
     }
 }
