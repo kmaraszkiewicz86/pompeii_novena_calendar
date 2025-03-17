@@ -3,11 +3,11 @@ using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
 
 namespace PompeiiNovenaCalendar.ApplicationLayer.Validators
 {
-    public class SaveRosarySelectionCommandValidator : AbstractValidator<SaveRosarySelectionCommand>
+    public class ToogleRossarySelectionCommandValidator : AbstractValidator<ToogleRossarySelectionCommand>
     {
-        public SaveRosarySelectionCommandValidator()
+        public ToogleRossarySelectionCommandValidator()
         {
-            RuleFor(x => x.Id)
+            RuleFor(x => x.DayId)
                 .GreaterThan(0)
                 .NotEmpty();
 

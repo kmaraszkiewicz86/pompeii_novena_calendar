@@ -10,5 +10,14 @@ namespace PompeiiNovenaCalendar.Infrastructure.Database.Repositories
         {
             await dbContext.DayRecords.AddRangeAsync(dayRecords);
         }
+
+        public async Task ResetAsync()
+        {
+            DayRecord[] days = await dbContext.DayRecords.ToArrayAsync();
+            RosarySelection[] selections = await dbContext.RosarySelections.ToArrayAsync();
+
+            dbContext.DayRecords.RemoveRange(days);
+            dbContext.RosarySelections.RemoveRange(selections);
+        }
     }
 }

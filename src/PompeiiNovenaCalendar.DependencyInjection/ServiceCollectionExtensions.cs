@@ -33,7 +33,7 @@ namespace PompeiiNovenaCalendar.DependencyInjection
         {
             services.AddMediatR(config =>
             {
-                config.RegisterServicesFromAssembly(typeof(SaveRosarySelectionCommandHandler).Assembly);
+                config.RegisterServicesFromAssembly(typeof(ToogleRossarySelectionCommandHandler).Assembly);
             });
 
             return services;

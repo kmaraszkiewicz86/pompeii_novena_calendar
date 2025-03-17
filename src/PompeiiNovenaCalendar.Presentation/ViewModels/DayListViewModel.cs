@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MediatR;
 using PompeiiNovenaCalendar.Domain.Models;
+using PompeiiNovenaCalendar.Presentation.Views;
 using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
 using PompeiiNovenaCalendar.Shared.Models.Handlers.Queries;
 
@@ -32,9 +33,10 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
             set => SetProperty(ref _days, value);
         }
 
-        public IRelayCommand<DayRecordModel> SaveCommand => new AsyncRelayCommand<DayRecordModel>(ToogleRossarySelectionAsync!);
+        public IRelayCommand<RosarySelectionModel> ToogleRossarySelectionCommand => new AsyncRelayCommand<RosarySelectionModel>(ToogleRossarySelectionAsync!);
         public IRelayCommand LoadCommand => new AsyncRelayCommand(LoadDaysAsync);
         public IRelayCommand GetDaysLengthToEndCommand => new AsyncRelayCommand(GetDaysLengthToEndAsync);
+        public IRelayCommand ResetDaysCommand => new AsyncRelayCommand(ResetDaysAsync);
 
         private async Task LoadDaysAsync()
         {
@@ -46,9 +48,9 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
             }
         }
 
-        private async Task ToogleRossarySelectionAsync(DayRecordModel record)
+        private async Task ToogleRossarySelectionAsync(RosarySelectionModel record)
         {
-            await mediator.Send(new SaveRosarySelectionCommand(record.Id, 1, true));
+            await mediator.Send(new ToogleRossarySelectionCommand(record.DayRecordId, record.RossaryTypeId, true));
             await GetDaysLengthToEndAsync();
             await LoadDaysAsync();
         }
@@ -56,6 +58,12 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
         private async Task GetDaysLengthToEndAsync()
         {
             DaysLengthToEnd = await mediator.Send(new GetDaysLengthToEndQuery());
+        }
+
+        private async Task ResetDaysAsync()
+        {
+            await mediator.Send(new ResetDaysCommand());
+            await Shell.Current.GoToAsync($"{nameof(StartPage)}");
         }
     }
 }

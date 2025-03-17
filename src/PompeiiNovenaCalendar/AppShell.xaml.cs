@@ -8,6 +8,7 @@ namespace PompeiiNovenaCalendar
         {
             InitializeComponent();
 
+            Routing.RegisterRoute(nameof(StartPage), typeof(StartPage));
             Routing.RegisterRoute(nameof(DaysListPage), typeof(DaysListPage));
         }
     }

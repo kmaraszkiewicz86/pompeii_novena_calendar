@@ -50,9 +50,9 @@ namespace PompeiiNovenaCalendar.Infrastructure.Database.DatabaseQueries
         {
             await using ISqliteConnectionConnection connection = await queryContext.CreateConnectionAsync();
             
-            var sql = @"SELECT COUNT(*) FROM DayRecords WHERE Date >= @Date";
+            var sql = @"SELECT count(*) FROM DayRecords WHERE IsCompleted = 0";
 
-            return await connection.Connection.ExecuteScalarAsync<int>(sql, new { Date = DateTime.Now.Date });
+            return await connection.Connection.ExecuteScalarAsync<int>(sql);
         }
 
         private IEnumerable<DayRecordCollectionModel> GenerateCollection(DayRecordModel[] daysFromDatabase)
@@ -77,7 +77,9 @@ namespace PompeiiNovenaCalendar.Infrastructure.Database.DatabaseQueries
 
                 day.RosarySelections.Add(new RosarySelectionModel
                 {
-                    Id = dayFromDb.RossarySelectionId,
+                    Id = $"{dayFromDb.Id}-{dayFromDb.RossarySelectionId}",
+                    RossaryTypeId = dayFromDb.RossarySelectionId,
+                    DayRecordId = dayFromDb.Id,
                     Name = dayFromDb.RossaryTypeName,
                     IsCompleted = dayFromDb.IsRossarySelectionCompleted
                 });

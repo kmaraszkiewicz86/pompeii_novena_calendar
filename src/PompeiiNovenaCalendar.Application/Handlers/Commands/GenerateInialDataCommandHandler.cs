@@ -2,7 +2,6 @@
 using FluentValidation.Results;
 using MediatR;
 using PompeiiNovenaCalendar.ApplicationLayer.Validators;
-using PompeiiNovenaCalendar.Domain.Database.Repositories;
 using PompeiiNovenaCalendar.Domain.Services.Interfaces;
 using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
 

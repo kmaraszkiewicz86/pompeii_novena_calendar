@@ -7,9 +7,9 @@ using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
 
 namespace PompeiiNovenaCalendar.ApplicationLayer.Handlers.Commands
 {
-    public class SaveRosarySelectionCommandHandler(SaveRosarySelectionCommandValidator validator, IRosarySelectionRepository repository, IUnitOfWork unitOfWork) : IRequestHandler<SaveRosarySelectionCommand, Result>
+    public class ToogleRossarySelectionCommandHandler(ToogleRossarySelectionCommandValidator validator, IRosarySelectionRepository repository, IUnitOfWork unitOfWork) : IRequestHandler<ToogleRossarySelectionCommand, Result>
     {
-        public async Task<Result> Handle(SaveRosarySelectionCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(ToogleRossarySelectionCommand request, CancellationToken cancellationToken)
         {
             ValidationResult validationResult = validator.Validate(request);
 
@@ -18,7 +18,12 @@ namespace PompeiiNovenaCalendar.ApplicationLayer.Handlers.Commands
                 return Result.Fail(validationResult.Errors.Select(e => e.ErrorMessage)?.ToArray() ?? []);
             }
 
-            await repository.ToogleRossarySelectionAsync(request);
+            Result result = await repository.ToogleRossarySelectionAsync(request);
+
+            if (result.IsFailed)
+            {
+                return result;
+            }
 
             return  await unitOfWork.SaveChangesAsync();
         }

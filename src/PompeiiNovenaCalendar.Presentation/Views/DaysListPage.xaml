@@ -3,29 +3,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PompeiiNovenaCalendar.Presentation.Views.DaysListPage"
              Appearing="ContentPage_Appearing"
-             Title="DaysListPage">
+             Title="Lista dni Nowenny">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="{Binding DaysLengthToEndText}"
                      Order="Primary"
                      Priority="0"
                      />
+        <ToolbarItem Text="Wyzeruj"
+                     IconImageSource="remove_icon.png"
+                     Command="{Binding ResetDaysCommand}" />
     </ContentPage.ToolbarItems>
     <CollectionView ItemsSource="{Binding Days}">
         <CollectionView.ItemTemplate>
             <DataTemplate>
                 <StackLayout Padding="10" >
-                    <StackLayout Orientation="Horizontal" Margin="30, 10" >
+                    <StackLayout Orientation="Horizontal" Margin="30" >
                         <Label Text="{Binding Day, StringFormat='{0:dddd, dd MMMM}'}" FontSize="Medium" HorizontalTextAlignment="Center" Margin="20, 0" />
                         <Label Text="{Binding StatusName}" FontSize="Medium" HorizontalTextAlignment="End" />
                     </StackLayout>
                     <StackLayout>
 
-                        <CollectionView ItemsSource="{Binding RosarySelections}">
+                        <CollectionView ItemsSource="{Binding RosarySelections}" x:Name="RosaryCollection">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <StackLayout Orientation="Horizontal" >
-                                        <CheckBox IsChecked="{Binding IsCompleted}" IsEnabled="{Binding Source={RelativeSource AncestorType={x:Type StackLayout}}, Path=BindingContext.CanEdit}" />
-                                        <Label Text="{Binding Name}" FontSize="Medium" />
+                                        <CheckBox 
+                                            IsChecked="{Binding IsCompleted}"  
+                                            CheckedChanged="CheckBox_CheckedChanged"
+                                            AutomationId="{Binding Id}"
+                                            Margin="150, 0, 0, 0" />
+                                        <Label Text="{Binding Name}" FontSize="Medium" Margin="15, 5, 0, 0"/>
                                     </StackLayout>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>

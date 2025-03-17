@@ -5,15 +5,15 @@ using PompeiiNovenaCalendar.Domain.Database.Repositories;
 
 namespace PompeiiNovenaCalendar.Application.Tests.Fixtures
 {
-    public class SaveRosarySelectionCommandHandlerFixture : BaseFixture
+    public class ToogleRossarySelectionCommandHandlerFixture : BaseFixture
     {
-        public SaveRosarySelectionCommandHandler GetServiceUnderTest()
+        public ToogleRossarySelectionCommandHandler GetServiceUnderTest()
         {
-            var validator = new SaveRosarySelectionCommandValidator();
+            var validator = new ToogleRossarySelectionCommandValidator();
             var service = this.Freeze<IRosarySelectionRepository>();
             var unitOfWork = this.Freeze<IUnitOfWork>();
 
-            return new SaveRosarySelectionCommandHandler(validator, service, unitOfWork);
+            return new ToogleRossarySelectionCommandHandler(validator, service, unitOfWork);
         }
     }
 }
