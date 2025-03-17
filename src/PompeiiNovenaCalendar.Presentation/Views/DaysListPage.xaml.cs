@@ -21,14 +21,14 @@ public partial class DaysListPage : ContentPage
 
     private void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
-        if (sender is CheckBox checkBox)
+        if (sender is CheckBox checkBox && int.TryParse(checkBox.AutomationId, out int id))
         {
-            DayRecordCollectionModel? day = _bindingContext.Days.FirstOrDefault(r => r.RosarySelections.Any(s => s.Id == checkBox.AutomationId));
+            DayRecordCollectionModel? day = _bindingContext.Days.FirstOrDefault(r => r.RosarySelections.Any(s => s.Id == id));
 
             if (day is null)
                 return;
 
-            RosarySelectionModel? rosarySelection = day.RosarySelections.FirstOrDefault(s => s.Id == checkBox.AutomationId);
+            RosarySelectionModel? rosarySelection = day.RosarySelections.FirstOrDefault(s => s.Id == id);
 
             if (rosarySelection is null)
                 return;

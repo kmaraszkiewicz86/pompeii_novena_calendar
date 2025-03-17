@@ -50,7 +50,7 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
 
         private async Task ToogleRossarySelectionAsync(RosarySelectionModel record)
         {
-            await mediator.Send(new ToogleRossarySelectionCommand(record.DayRecordId, record.RossaryTypeId, true));
+            await mediator.Send(new ToogleRossarySelectionCommand(record.Id, record.DayId));
             await GetDaysLengthToEndAsync();
             await LoadDaysAsync();
         }

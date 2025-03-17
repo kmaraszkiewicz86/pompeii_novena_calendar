@@ -68,8 +68,7 @@ namespace PompeiiNovenaCalendar.Infrastructure.Database.DatabaseQueries
                     day = new DayRecordCollectionModel
                     {
                         Id = dayFromDb.Id,
-                        Day = dayFromDb.Day,
-                        IsCompleted = dayFromDb.IsDayCompleted
+                        Day = dayFromDb.Day
                     };
 
                     days.Add(day);
@@ -77,9 +76,8 @@ namespace PompeiiNovenaCalendar.Infrastructure.Database.DatabaseQueries
 
                 day.RosarySelections.Add(new RosarySelectionModel
                 {
-                    Id = $"{dayFromDb.Id}-{dayFromDb.RossarySelectionId}",
-                    RossaryTypeId = dayFromDb.RossarySelectionId,
-                    DayRecordId = dayFromDb.Id,
+                    Id = dayFromDb.RossarySelectionId,
+                    DayId = dayFromDb.Id,
                     Name = dayFromDb.RossaryTypeName,
                     IsCompleted = dayFromDb.IsRossarySelectionCompleted
                 });

@@ -20,7 +20,7 @@ namespace PompeiiNovenaCalendar.Application.Tests.Handlers.Commands
 
             // Arrange
             ToogleRossarySelectionCommandHandler handler = _fixture.GetServiceUnderTest();
-            ToogleRossarySelectionCommand query = new(-1, -1, true);
+            ToogleRossarySelectionCommand query = new(-1, -1);
             var unitOfWork = _fixture.Freeze<IUnitOfWork>();
             unitOfWork.SaveChangesAsync().Returns(Task.FromResult(Result.Fail("test")));
 
@@ -35,7 +35,7 @@ namespace PompeiiNovenaCalendar.Application.Tests.Handlers.Commands
         {
             // Arrange
             ToogleRossarySelectionCommandHandler handler = _fixture.GetServiceUnderTest();
-            ToogleRossarySelectionCommand query = new(1, 1, true);
+            ToogleRossarySelectionCommand query = new(1, 1);
             var unitOfWork = _fixture.Freeze<IUnitOfWork>();
             unitOfWork.SaveChangesAsync().Returns(Task.FromResult(Result.Fail("test")));
 
@@ -50,7 +50,7 @@ namespace PompeiiNovenaCalendar.Application.Tests.Handlers.Commands
         {
             // Arrange
             ToogleRossarySelectionCommandHandler handler = _fixture.GetServiceUnderTest();
-            ToogleRossarySelectionCommand query = new(1, 1, true);
+            ToogleRossarySelectionCommand query = new(1, 1);
             _fixture.Freeze<IUnitOfWork>().SaveChangesAsync().Returns(Result.Ok());
             var repository = _fixture.Freeze<IRosarySelectionRepository>();
 
@@ -65,7 +65,7 @@ namespace PompeiiNovenaCalendar.Application.Tests.Handlers.Commands
         public async Task HandleAsync_WhenValidationSuccess_ShouldReturnValidResult()
         {
             // Arrange
-            ToogleRossarySelectionCommand query = new(1, 1, true);
+            ToogleRossarySelectionCommand query = new(1, 1);
             var unitOfWork = _fixture.Freeze<IUnitOfWork>();
             unitOfWork.SaveChangesAsync().Returns(Task.FromResult(Result.Ok()));
 

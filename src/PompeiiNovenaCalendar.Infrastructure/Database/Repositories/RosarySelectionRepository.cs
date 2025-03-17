@@ -10,7 +10,7 @@ namespace PompeiiNovenaCalendar.Infrastructure.Database.Repositories
     {
         public async Task<Result> ToogleRossarySelectionAsync(ToogleRossarySelectionCommand command)
         {
-            RosarySelection? selection = await dbContext.RosarySelections.FirstOrDefaultAsync(r => r.DayRecordId == command.DayId && r.RosaryTypeId == command.RosaryId);
+            RosarySelection? selection = await dbContext.RosarySelections.FirstOrDefaultAsync(r => r.Id == command.Id);
 
             if (selection is null)
                 return Result.Fail("No data found in databse");

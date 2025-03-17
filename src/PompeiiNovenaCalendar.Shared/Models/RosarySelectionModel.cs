@@ -2,11 +2,9 @@
 {
     public class RosarySelectionModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
-        public int RossaryTypeId { get; set; }
-
-        public int DayRecordId { get; set; }
+        public int DayId { get; set; }
 
         public string Name { get; set; } = string.Empty;
 

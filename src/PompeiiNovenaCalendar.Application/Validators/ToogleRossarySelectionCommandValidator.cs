@@ -7,15 +7,12 @@ namespace PompeiiNovenaCalendar.ApplicationLayer.Validators
     {
         public ToogleRossarySelectionCommandValidator()
         {
+            RuleFor(x => x.Id)
+                .GreaterThan(0)
+                .NotEmpty();
+
             RuleFor(x => x.DayId)
                 .GreaterThan(0)
-                .NotEmpty();
-
-            RuleFor(x => x.RosaryId)
-                .GreaterThan(0)
-                .NotEmpty();
-
-            RuleFor(x => x.IsChecked)
                 .NotEmpty();
         }
     }
