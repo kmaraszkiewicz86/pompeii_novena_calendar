@@ -12,7 +12,7 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
     {
         private DateTime _selectedDate = DateTime.Today;
 
-        private DateTime SelectedDate
+        public DateTime SelectedDate
         {
             get => _selectedDate;
             set => SetProperty(ref _selectedDate, value);
@@ -59,9 +59,9 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
             await GoToCalendarAsync();
         }
 
-        private async Task GoToCalendarAsync()
+        private static async Task GoToCalendarAsync()
         {
-            await Shell.Current.GoToAsync($"{nameof(DaysListPage)}?startDate={SelectedDate}");
+            await Shell.Current.GoToAsync($"{nameof(DaysListPage)}");
         }
     }
 }

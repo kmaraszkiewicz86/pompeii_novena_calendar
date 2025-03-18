@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MediatR;
+using FluentResults;
 using PompeiiNovenaCalendar.Domain.Models;
 using PompeiiNovenaCalendar.Presentation.Views;
 using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
@@ -11,6 +12,20 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
 {
     public class DayListViewModel(IMediator mediator) : ObservableObject
     {
+        private string _errorMessage = string.Empty;
+
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                SetProperty(ref _errorMessage, value);
+                OnPropertyChanged(nameof(IsValid));
+            }
+        }
+
+        private bool IsValid => string.IsNullOrEmpty(ErrorMessage);
+
         private int _daysLengthToEnd = 0;
 
         public int DaysLengthToEnd
@@ -62,7 +77,14 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
 
         private async Task ResetDaysAsync()
         {
-            await mediator.Send(new ResetDaysCommand());
+            Result result = await mediator.Send(new ResetDaysCommand());
+
+            if (result.IsFailed)
+            {
+                ErrorMessage = "An error occurred while resetting the calendar. Please try again.";
+                return;
+            }
+
             await Shell.Current.GoToAsync($"{nameof(StartPage)}");
         }
     }
