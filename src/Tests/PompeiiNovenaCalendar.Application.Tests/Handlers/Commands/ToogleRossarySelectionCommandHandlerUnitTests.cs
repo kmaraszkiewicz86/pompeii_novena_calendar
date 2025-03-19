@@ -4,6 +4,7 @@ using NSubstitute;
 using PompeiiNovenaCalendar.Application.Tests.Fixtures;
 using PompeiiNovenaCalendar.ApplicationLayer.Handlers.Commands;
 using PompeiiNovenaCalendar.Domain.Database.Repositories;
+using PompeiiNovenaCalendar.Domain.Services.Interfaces;
 using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
 using Shouldly;
 
@@ -21,8 +22,8 @@ namespace PompeiiNovenaCalendar.Application.Tests.Handlers.Commands
             // Arrange
             ToogleRossarySelectionCommandHandler handler = _fixture.GetServiceUnderTest();
             ToogleRossarySelectionCommand query = new(-1, -1);
-            var unitOfWork = _fixture.Freeze<IUnitOfWork>();
-            unitOfWork.SaveChangesAsync().Returns(Task.FromResult(Result.Fail("test")));
+            var service = _fixture.Freeze<IToogleRossarySelectionService>();
+            service.SaveAsync(query).Returns(Task.FromResult(Result.Fail("test")));
 
             // Act
             Result result = await handler.Handle(query, CancellationToken.None);
@@ -36,8 +37,8 @@ namespace PompeiiNovenaCalendar.Application.Tests.Handlers.Commands
             // Arrange
             ToogleRossarySelectionCommandHandler handler = _fixture.GetServiceUnderTest();
             ToogleRossarySelectionCommand query = new(1, 1);
-            var unitOfWork = _fixture.Freeze<IUnitOfWork>();
-            unitOfWork.SaveChangesAsync().Returns(Task.FromResult(Result.Fail("test")));
+            var service = _fixture.Freeze<IToogleRossarySelectionService>();
+            service.SaveAsync(query).Returns(Task.FromResult(Result.Fail("test")));
 
             // Act
             Result result = await handler.Handle(query, CancellationToken.None);
@@ -51,7 +52,8 @@ namespace PompeiiNovenaCalendar.Application.Tests.Handlers.Commands
             // Arrange
             ToogleRossarySelectionCommandHandler handler = _fixture.GetServiceUnderTest();
             ToogleRossarySelectionCommand query = new(1, 1);
-            _fixture.Freeze<IUnitOfWork>().SaveChangesAsync().Returns(Result.Ok());
+            var service = _fixture.Freeze<IToogleRossarySelectionService>();
+            service.SaveAsync(query).Returns(Result.Ok());
             var repository = _fixture.Freeze<IRosarySelectionRepository>();
 
             // Act
@@ -66,8 +68,8 @@ namespace PompeiiNovenaCalendar.Application.Tests.Handlers.Commands
         {
             // Arrange
             ToogleRossarySelectionCommand query = new(1, 1);
-            var unitOfWork = _fixture.Freeze<IUnitOfWork>();
-            unitOfWork.SaveChangesAsync().Returns(Task.FromResult(Result.Ok()));
+            var service = _fixture.Freeze<IToogleRossarySelectionService>();
+            service.SaveAsync(query).Returns(Task.FromResult(Result.Ok()));
 
             ToogleRossarySelectionCommandHandler handler = _fixture.GetServiceUnderTest();
             // Act

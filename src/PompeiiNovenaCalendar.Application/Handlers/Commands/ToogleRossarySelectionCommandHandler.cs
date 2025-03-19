@@ -2,12 +2,12 @@
 using FluentValidation.Results;
 using MediatR;
 using PompeiiNovenaCalendar.ApplicationLayer.Validators;
-using PompeiiNovenaCalendar.Domain.Database.Repositories;
+using PompeiiNovenaCalendar.Domain.Services.Interfaces;
 using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
 
 namespace PompeiiNovenaCalendar.ApplicationLayer.Handlers.Commands
 {
-    public class ToogleRossarySelectionCommandHandler(ToogleRossarySelectionCommandValidator validator, IRosarySelectionRepository repository, IUnitOfWork unitOfWork) : IRequestHandler<ToogleRossarySelectionCommand, Result>
+    public class ToogleRossarySelectionCommandHandler(ToogleRossarySelectionCommandValidator validator, IToogleRossarySelectionService service) : IRequestHandler<ToogleRossarySelectionCommand, Result>
     {
         public async Task<Result> Handle(ToogleRossarySelectionCommand request, CancellationToken cancellationToken)
         {
@@ -18,14 +18,7 @@ namespace PompeiiNovenaCalendar.ApplicationLayer.Handlers.Commands
                 return Result.Fail(validationResult.Errors.Select(e => e.ErrorMessage)?.ToArray() ?? []);
             }
 
-            Result result = await repository.ToogleRossarySelectionAsync(request);
-
-            if (result.IsFailed)
-            {
-                return result;
-            }
-
-            return  await unitOfWork.SaveChangesAsync();
+            return await service.SaveAsync(request);
         }
     }
 }

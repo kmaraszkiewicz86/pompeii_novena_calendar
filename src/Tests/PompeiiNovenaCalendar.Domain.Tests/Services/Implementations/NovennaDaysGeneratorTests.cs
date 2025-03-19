@@ -1,6 +1,6 @@
 ﻿using NSubstitute;
+using PompeiiNovenaCalendar.Application.Tests.Fixtures;
 using PompeiiNovenaCalendar.Domain.Database.Entities;
-using PompeiiNovenaCalendar.Domain.Database.Repositories;
 using PompeiiNovenaCalendar.Domain.Services.Implementations;
 using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
 
@@ -8,51 +8,42 @@ namespace PompeiiNovenaCalendar.Domain.Tests.Services.Implementations;
 
 public class NovennaDaysGeneratorTests
 {
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IDayRecordRepository _repository;
-    private readonly IRosaryTypesQuery _rosaryTypesQuery;
-    private readonly NovennaDaysGenerator _generator;
-
-    public NovennaDaysGeneratorTests()
-    {
-        _unitOfWork = Substitute.For<IUnitOfWork>();
-        _repository = Substitute.For<IDayRecordRepository>();
-        _rosaryTypesQuery = Substitute.For<IRosaryTypesQuery>();
-        _generator = new NovennaDaysGenerator(_unitOfWork, _repository, _rosaryTypesQuery);
-    }
+    private readonly NovennaDaysGeneratorFixture _fixture = new();
 
     [Fact]
     public async Task GenerateInitialDataAsync_ShouldGenerate54Days()
     {
         // Arrange
-        GenerateInialDataCommand command = new (new DateTime(2024, 3, 1, 0, 0 ,0, DateTimeKind.Utc));
+        NovennaDaysGenerator generator = _fixture.GetServiceUnderTest();
+        GenerateInialDataCommand command = new(new DateTime(2024, 3, 1, 0, 0, 0, DateTimeKind.Utc));
 
         // Act
-        await _generator.GenerateInitialDataAsync(command);
+        await generator.GenerateInitialDataAsync(command);
 
         // Assert
-        await _repository.Received(1).AddRangeAsync(Arg.Is<List<DayRecord>>(list => list.Count == 54));
-        await _unitOfWork.Received(1).SaveChangesAsync();
+        await _fixture.DayRecordRepository.Received(1).AddRangeAsync(Arg.Is<List<DayRecord>>(list => list.Count == 54));
+        await _fixture.UnitOfWork.Received(1).SaveChangesAsync();
     }
 
     [Fact]
     public async Task GenerateInitialDataAsync_ShouldSetCorrectDates()
     {
         // Arrange
+        NovennaDaysGenerator generator = _fixture.GetServiceUnderTest();
         var startDate = new DateTime(2024, 3, 1, 0, 0, 0, DateTimeKind.Utc);
         GenerateInialDataCommand command = new(new DateTime(2024, 3, 1, 0, 0, 0, DateTimeKind.Utc));
-        _rosaryTypesQuery.GetAllRosaryTypesAsync().Returns([
-            new RosaryType { Id = 1, Name = "Tajemnice radosne" }, 
-            new RosaryType { Id = 2, Name = "Tajemnice bolesne" }, 
-            new RosaryType { Id = 3, Name = "Tajemnice chwalebne" }, 
-            new RosaryType { Id = 4, Name = "Tajemnice światła" } 
+        _fixture.RosaryTypesQuery.GetAllRosaryTypesAsync().Returns([
+            new RosaryType { Id = 1, Name = "Tajemnice radosne" },
+            new RosaryType { Id = 2, Name = "Tajemnice bolesne" },
+            new RosaryType { Id = 3, Name = "Tajemnice chwalebne" },
+            new RosaryType { Id = 4, Name = "Tajemnice światła" }
         ]);
 
         // Act
-        await _generator.GenerateInitialDataAsync(command);
+        await generator.GenerateInitialDataAsync(command);
 
         // Assert
-        await _repository.Received(1).AddRangeAsync(Arg.Is<List<DayRecord>>(list =>
+        await _fixture.DayRecordRepository.Received(1).AddRangeAsync(Arg.Is<List<DayRecord>>(list =>
             list.Count == 54 &&
             list.All(l => l.RosarySelections.Count == 4) &&
             list[0].Date == startDate &&

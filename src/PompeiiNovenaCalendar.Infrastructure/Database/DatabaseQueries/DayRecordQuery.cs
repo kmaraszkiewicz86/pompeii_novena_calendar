@@ -68,7 +68,8 @@ namespace PompeiiNovenaCalendar.Infrastructure.Database.DatabaseQueries
                     day = new DayRecordCollectionModel
                     {
                         Id = dayFromDb.Id,
-                        Day = dayFromDb.Day
+                        Day = dayFromDb.Day,
+                        IsCompleted = dayFromDb.IsDayCompleted
                     };
 
                     days.Add(day);

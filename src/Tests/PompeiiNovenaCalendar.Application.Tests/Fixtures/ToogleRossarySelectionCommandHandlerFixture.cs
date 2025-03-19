@@ -1,7 +1,7 @@
 ﻿using AutoFixture;
 using PompeiiNovenaCalendar.ApplicationLayer.Handlers.Commands;
 using PompeiiNovenaCalendar.ApplicationLayer.Validators;
-using PompeiiNovenaCalendar.Domain.Database.Repositories;
+using PompeiiNovenaCalendar.Domain.Services.Interfaces;
 
 namespace PompeiiNovenaCalendar.Application.Tests.Fixtures
 {
@@ -10,10 +10,9 @@ namespace PompeiiNovenaCalendar.Application.Tests.Fixtures
         public ToogleRossarySelectionCommandHandler GetServiceUnderTest()
         {
             var validator = new ToogleRossarySelectionCommandValidator();
-            var service = this.Freeze<IRosarySelectionRepository>();
-            var unitOfWork = this.Freeze<IUnitOfWork>();
+            var service = this.Freeze<IToogleRossarySelectionService>();
 
-            return new ToogleRossarySelectionCommandHandler(validator, service, unitOfWork);
+            return new ToogleRossarySelectionCommandHandler(validator, service);
         }
     }
 }

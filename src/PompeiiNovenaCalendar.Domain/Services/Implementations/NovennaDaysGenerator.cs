@@ -6,7 +6,11 @@ using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
 
 namespace PompeiiNovenaCalendar.Domain.Services.Implementations
 {
-    public class NovennaDaysGenerator(IUnitOfWork unitOfWork, IDayRecordRepository repository, IRosaryTypesQuery rosaryTypesQuery) : INovennaDaysGenerator
+    public class NovennaDaysGenerator(
+        IUnitOfWork unitOfWork, 
+        IDayRecordRepository repository, 
+        IRosaryTypesQuery rosaryTypesQuery
+    ) : INovennaDaysGenerator
     {
         public const int NovennaDayLenght = 54;
 

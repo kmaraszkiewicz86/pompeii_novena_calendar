@@ -61,18 +61,19 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
             {
                 Days.Add(day);
             }
-        }
 
-        private async Task ToogleRossarySelectionAsync(RosarySelectionModel record)
-        {
-            await mediator.Send(new ToogleRossarySelectionCommand(record.Id, record.DayId));
             await GetDaysLengthToEndAsync();
-            await LoadDaysAsync();
         }
 
         private async Task GetDaysLengthToEndAsync()
         {
             DaysLengthToEnd = await mediator.Send(new GetDaysLengthToEndQuery());
+        }
+
+        private async Task ToogleRossarySelectionAsync(RosarySelectionModel record)
+        {
+            await mediator.Send(new ToogleRossarySelectionCommand(record.Id, record.DayId));
+            await LoadDaysAsync();
         }
 
         private async Task ResetDaysAsync()
