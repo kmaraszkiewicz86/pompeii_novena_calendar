@@ -10,7 +10,7 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
         public DayRecordViewModel(DayRecordCollectionModel model)
         {
             _model = model;
-            OnPropertyChanged(nameof(StatusName));
+            IsCompleted = _model.IsCompleted;
         }
 
         public int Id => _model.Id;

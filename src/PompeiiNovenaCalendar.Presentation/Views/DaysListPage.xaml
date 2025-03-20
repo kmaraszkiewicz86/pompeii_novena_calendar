@@ -19,7 +19,7 @@
                 <StackLayout Padding="10" >
                     <StackLayout Orientation="Horizontal" Margin="30" >
                         <Label Text="{Binding Day, StringFormat='{0:dddd, dd MMMM}'}" FontSize="Medium" HorizontalTextAlignment="Center" Margin="20, 0" />
-                        <Label Text="{Binding IsCompleted}" FontSize="Medium" HorizontalTextAlignment="End" />
+                        <Label Text="{Binding StatusName}" FontSize="Medium" HorizontalTextAlignment="End" />
                     </StackLayout>
                     <StackLayout>
 
