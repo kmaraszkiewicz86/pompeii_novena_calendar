@@ -27,7 +27,7 @@ public class ToogleRossarySelectionServiceTests
         Result result = await service.SaveAsync(_fixture.ToogleRossarySelectionCommand);
 
         // Assert
-        result.ShouldBe(Result.Ok());
+        result.IsSuccess.ShouldBeTrue();
     }
 
     [Theory]

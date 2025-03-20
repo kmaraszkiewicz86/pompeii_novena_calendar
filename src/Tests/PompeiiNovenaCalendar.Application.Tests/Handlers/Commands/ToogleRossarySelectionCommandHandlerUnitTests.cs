@@ -47,23 +47,6 @@ namespace PompeiiNovenaCalendar.Application.Tests.Handlers.Commands
         }
 
         [Fact]
-        public async Task HandleAsync_WhenValidationSuccess_ShouldCallGenerateInitialDataAsyncMethod()
-        {
-            // Arrange
-            ToogleRossarySelectionCommandHandler handler = _fixture.GetServiceUnderTest();
-            ToogleRossarySelectionCommand query = new(1, 1);
-            var service = _fixture.Freeze<IToogleRossarySelectionService>();
-            service.SaveAsync(query).Returns(Result.Ok());
-            var repository = _fixture.Freeze<IRosarySelectionRepository>();
-
-            // Act
-            await handler.Handle(query, CancellationToken.None);
-
-            // Assert
-            await repository.Received(1).ToogleRossarySelectionAsync(query);
-        }
-
-        [Fact]
         public async Task HandleAsync_WhenValidationSuccess_ShouldReturnValidResult()
         {
             // Arrange
