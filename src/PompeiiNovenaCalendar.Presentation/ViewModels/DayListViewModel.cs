@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using MediatR;
 using FluentResults;
+using MediatR;
 using PompeiiNovenaCalendar.Domain.Models;
 using PompeiiNovenaCalendar.Presentation.Views;
 using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
@@ -40,9 +40,9 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
 
         public string DaysLengthToEndText => $"Pozostało {DaysLengthToEnd} dni do końca";
 
-        private ObservableCollection<DayRecordCollectionModel> _days = new();
+        private ObservableCollection<DayRecordViewModel> _days = new();
 
-        public ObservableCollection<DayRecordCollectionModel> Days
+        public ObservableCollection<DayRecordViewModel> Days
         {
             get => _days;
             set => SetProperty(ref _days, value);
@@ -59,7 +59,15 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
 
             foreach (DayRecordCollectionModel day in days) 
             {
-                Days.Add(day);
+                DayRecordViewModel? dayFromView = Days.FirstOrDefault(d => d.Day == day.Day);
+                if (dayFromView is null)
+                {
+                    Days.Add(new DayRecordViewModel(day));
+                }
+                else
+                {
+                    dayFromView.IsCompleted = day.IsCompleted;
+                }
             }
 
             await GetDaysLengthToEndAsync();

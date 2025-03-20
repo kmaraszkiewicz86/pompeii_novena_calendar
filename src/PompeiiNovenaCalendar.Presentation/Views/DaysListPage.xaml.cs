@@ -23,7 +23,7 @@ public partial class DaysListPage : ContentPage
     {
         if (sender is CheckBox checkBox && int.TryParse(checkBox.AutomationId, out int id))
         {
-            DayRecordCollectionModel? day = _bindingContext.Days.FirstOrDefault(r => r.RosarySelections.Any(s => s.Id == id));
+            DayRecordViewModel? day = _bindingContext.Days.FirstOrDefault(r => r.RosarySelections.Any(s => s.Id == id));
 
             if (day is null)
                 return;
