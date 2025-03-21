@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Globalization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using PompeiiNovenaCalendar.DependencyInjection;
 using PompeiiNovenaCalendar.Extensions;
@@ -11,6 +12,7 @@ public static class MauiProgram
     public static MauiApp CreateMauiApp()
     {
         string dbPath = Path.Combine(FileSystem.AppDataDirectory, "app.db");
+        string uiLanguage = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
 
         var builder = MauiApp.CreateBuilder();
         builder
@@ -26,6 +28,7 @@ public static class MauiProgram
             .AddViewModels()
             .AddViews()
             .AddServices()
+            .ConfigureDefaultLanguage(uiLanguage)
             .AddValidators();
 
 #if DEBUG

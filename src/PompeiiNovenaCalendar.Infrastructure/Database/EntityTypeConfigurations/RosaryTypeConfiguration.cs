@@ -15,15 +15,11 @@ namespace PompeiiNovenaCalendar.Infrastructure.Database.EntityTypeConfigurations
             builder.Property(rt => rt.Id)
                 .ValueGeneratedOnAdd();
 
-            builder.Property(rt => rt.Name)
-                .IsRequired()
-                .HasMaxLength(100);
-
             builder.HasData(
-                new RosaryType { Id = 1, Name = "Tajemnice radosne" },
-                new RosaryType { Id = 2, Name = "Tajemnice bolesne" },
-                new RosaryType { Id = 3, Name = "Tajemnice chwalebne" },
-                new RosaryType { Id = 4, Name = "Tajemnice światła" }
+                new RosaryType { Id = 1, RosaryTypeLocalization = new RosaryTypeLocalization { Id = 1 } },
+                new RosaryType { Id = 2, RosaryTypeLocalization = new RosaryTypeLocalization { Id = 1 } },
+                new RosaryType { Id = 3, RosaryTypeLocalization = new RosaryTypeLocalization { Id = 1 } },
+                new RosaryType { Id = 4, RosaryTypeLocalization = new RosaryTypeLocalization { Id = 1 } }
             );
         }
     }

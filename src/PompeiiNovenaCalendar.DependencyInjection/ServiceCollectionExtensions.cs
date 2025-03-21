@@ -6,6 +6,7 @@ using PompeiiNovenaCalendar.ApplicationLayer.Handlers.Commands;
 using PompeiiNovenaCalendar.ApplicationLayer.Validators;
 using PompeiiNovenaCalendar.Domain.Database;
 using PompeiiNovenaCalendar.Domain.Database.Repositories;
+using PompeiiNovenaCalendar.Domain.Models;
 using PompeiiNovenaCalendar.Domain.Services.Interfaces;
 using PompeiiNovenaCalendar.Infrastructure.Database;
 using PompeiiNovenaCalendar.Infrastructure.Database.DatabaseQueries;
@@ -34,6 +35,16 @@ namespace PompeiiNovenaCalendar.DependencyInjection
             services.AddMediatR(config =>
             {
                 config.RegisterServicesFromAssembly(typeof(ToogleRossarySelectionCommandHandler).Assembly);
+            });
+
+            return services;
+        }
+
+        public static IServiceCollection ConfigureDefaultLanguage(this IServiceCollection services, string language)
+        {
+            services.AddScoped(services =>
+            {
+                return new LanguageSettings(language);
             });
 
             return services;

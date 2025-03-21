@@ -3,13 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PompeiiNovenaCalendar.Presentation.Views.DaysListPage"
              Appearing="ContentPage_Appearing"
-             Title="Lista dni Nowenny">
+             Title="{x:Static Resources:Strings.DaysListPageTitle}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="{Binding DaysLengthToEndText}"
                      Order="Primary"
                      Priority="0"
                      />
-        <ToolbarItem Text="Wyzeruj"
+        <ToolbarItem Text="{x:Static Resources:Strings.Reset}"
                      IconImageSource="remove_icon.png"
                      Command="{Binding ResetDaysCommand}" />
     </ContentPage.ToolbarItems>

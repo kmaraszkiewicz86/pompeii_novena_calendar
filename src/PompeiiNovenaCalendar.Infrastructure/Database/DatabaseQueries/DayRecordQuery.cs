@@ -6,7 +6,7 @@ using PompeiiNovenaCalendar.Domain.Models;
 
 namespace PompeiiNovenaCalendar.Infrastructure.Database.DatabaseQueries
 {
-    public class DayRecordQuery(IAppDbQueryContext queryContext) : IDayRecordQuery
+    public class DayRecordQuery(IAppDbQueryContext queryContext, LanguageSettings settings) : IDayRecordQuery
     {
         public async Task<bool> CheckIfCalendarWasGeneratedAsync()
         {
@@ -25,11 +25,13 @@ namespace PompeiiNovenaCalendar.Infrastructure.Database.DatabaseQueries
                 FROM DayRecords dr
                 INNER JOIN RosarySelections rs ON dr.Id = rs.DayRecordId
                 INNER JOIN RosaryTypes rt ON rs.RosaryTypeId = rt.Id
+                INNER JOIN RosaryTypeLocalizations rtl ON rt.RosaryTypeLocalizationId = rtl.Id
+                WHERE rtl.Language = @Language                
                 ORDER BY dr.Date";
 
-            DayRecordModel[] daysFromDatabase = [.. (await connection.Connection.QueryAsync<DayRecord, RosarySelection, RosaryType, DayRecordModel>(
+            DayRecordModel[] daysFromDatabase = [.. (await connection.Connection.QueryAsync<DayRecord, RosarySelection, RosaryType, RosaryTypeLocalization, DayRecordModel>(
                 sql,
-                (dayRecord, rosarySelection, rosaryType) =>
+                (dayRecord, rosarySelection, rosaryType, rosaryTypeLocalization) =>
                 {
                     return new DayRecordModel
                     {
@@ -37,10 +39,11 @@ namespace PompeiiNovenaCalendar.Infrastructure.Database.DatabaseQueries
                         Day = dayRecord.Date,
                         IsDayCompleted = dayRecord.IsCompleted,
                         RossarySelectionId = rosarySelection.Id,
-                        RossaryTypeName = rosaryType.Name,
+                        RossaryTypeName = rosaryTypeLocalization.Name,
                         IsRossarySelectionCompleted = rosarySelection.IsCompleted
                     };
-                }
+                },
+                new { settings.Language }
             )).Distinct()];
 
             return GenerateCollection(daysFromDatabase);

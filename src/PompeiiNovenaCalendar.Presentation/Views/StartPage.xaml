@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PompeiiNovenaCalendar.Presentation.Views.StartPage"
              Appearing="ContentPage_Appearing"
-             Title="Wybierz datę rzopoczęcia">
+             Title="{x:Static Resources:Strings.StartPageTitle}">
 
     <VerticalStackLayout Padding="20">
         <Label Text="{Binding ErrorMessage}" 
