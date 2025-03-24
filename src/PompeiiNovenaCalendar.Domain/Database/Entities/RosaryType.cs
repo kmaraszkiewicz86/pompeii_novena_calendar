@@ -5,6 +5,7 @@ namespace PompeiiNovenaCalendar.Domain.Database.Entities
     public class RosaryType
     {
         public int Id { get; set; }
-        public RosaryTypeLocalization RosaryTypeLocalization { get; set; } = default!;
+
+        public string Key { get; set; } = string.Empty;
     }
 }

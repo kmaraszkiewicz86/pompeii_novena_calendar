@@ -21,12 +21,13 @@ namespace PompeiiNovenaCalendar.Infrastructure.Database.DatabaseQueries
         {
             await using ISqliteConnectionConnection connection = await queryContext.CreateConnectionAsync();
 
+            Dictionary<string, string> rossaryTypeNames = await GetRosaryTypeLocalization(settings.Language, connection);
+
             var sql = @"SELECT dr.*, rs.*, rt.*
                 FROM DayRecords dr
                 INNER JOIN RosarySelections rs ON dr.Id = rs.DayRecordId
                 INNER JOIN RosaryTypes rt ON rs.RosaryTypeId = rt.Id
-                INNER JOIN RosaryTypeLocalizations rtl ON rt.RosaryTypeLocalizationId = rtl.Id
-                WHERE rtl.Language = @Language                
+                INNER JOIN RosaryTypeLocalizations rtl ON rt.RosaryTypeLocalizationId = rtl.Id              
                 ORDER BY dr.Date";
 
             DayRecordModel[] daysFromDatabase = [.. (await connection.Connection.QueryAsync<DayRecord, RosarySelection, RosaryType, RosaryTypeLocalization, DayRecordModel>(
@@ -39,11 +40,10 @@ namespace PompeiiNovenaCalendar.Infrastructure.Database.DatabaseQueries
                         Day = dayRecord.Date,
                         IsDayCompleted = dayRecord.IsCompleted,
                         RossarySelectionId = rosarySelection.Id,
-                        RossaryTypeName = rosaryTypeLocalization.Name,
+                        RossaryTypeName = rossaryTypeNames[rosaryType.Key],
                         IsRossarySelectionCompleted = rosarySelection.IsCompleted
                     };
-                },
-                new { settings.Language }
+                }
             )).Distinct()];
 
             return GenerateCollection(daysFromDatabase);
@@ -56,6 +56,14 @@ namespace PompeiiNovenaCalendar.Infrastructure.Database.DatabaseQueries
             var sql = @"SELECT count(*) FROM DayRecords WHERE IsCompleted = 0";
 
             return await connection.Connection.ExecuteScalarAsync<int>(sql);
+        }
+
+        private async Task<Dictionary<string, string>> GetRosaryTypeLocalization(string language, ISqliteConnectionConnection connection)
+        {
+            return (await connection.Connection.QueryAsync<RosaryTypeLocalization>(
+                "SELECT * FROM RosaryTypeLocalizations WHERE Language = @Language",
+                new { Language = language }
+            )).ToDictionary(r => r.Key, r => r.Name);
         }
 
         private IEnumerable<DayRecordCollectionModel> GenerateCollection(DayRecordModel[] daysFromDatabase)

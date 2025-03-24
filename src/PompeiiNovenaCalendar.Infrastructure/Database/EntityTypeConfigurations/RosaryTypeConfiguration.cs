@@ -16,10 +16,10 @@ namespace PompeiiNovenaCalendar.Infrastructure.Database.EntityTypeConfigurations
                 .ValueGeneratedOnAdd();
 
             builder.HasData(
-                new RosaryType { Id = 1, RosaryTypeLocalization = new RosaryTypeLocalization { Id = 1 } },
-                new RosaryType { Id = 2, RosaryTypeLocalization = new RosaryTypeLocalization { Id = 1 } },
-                new RosaryType { Id = 3, RosaryTypeLocalization = new RosaryTypeLocalization { Id = 1 } },
-                new RosaryType { Id = 4, RosaryTypeLocalization = new RosaryTypeLocalization { Id = 1 } }
+                new RosaryType { Id = 1, Key = "JoyfulMysteries" },
+                new RosaryType { Id = 2, Key = "SorrowfulMysteries" },
+                new RosaryType { Id = 3, Key = "GloriousMysteries" },
+                new RosaryType { Id = 4, Key = "LuminousMysteries" }
             );
         }
     }
