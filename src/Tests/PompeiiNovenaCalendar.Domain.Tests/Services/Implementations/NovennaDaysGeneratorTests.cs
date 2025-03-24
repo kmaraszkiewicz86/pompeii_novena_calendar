@@ -33,10 +33,10 @@ public class NovennaDaysGeneratorTests
         var startDate = new DateTime(2024, 3, 1, 0, 0, 0, DateTimeKind.Utc);
         GenerateInialDataCommand command = new(new DateTime(2024, 3, 1, 0, 0, 0, DateTimeKind.Utc));
         _fixture.RosaryTypesQuery.GetAllRosaryTypesAsync().Returns([
-            new RosaryType { Id = 1, Name = "Tajemnice radosne" },
-            new RosaryType { Id = 2, Name = "Tajemnice bolesne" },
-            new RosaryType { Id = 3, Name = "Tajemnice chwalebne" },
-            new RosaryType { Id = 4, Name = "Tajemnice światła" }
+            new RosaryType { Id = 1, RosaryTypeLocalization = new RosaryTypeLocalization { Id = 1, Name = "Tajemnice radosne" } },
+            new RosaryType { Id = 2, RosaryTypeLocalization = new RosaryTypeLocalization { Id = 2, Name = "Tajemnice bolesne" } },
+            new RosaryType { Id = 3, RosaryTypeLocalization = new RosaryTypeLocalization { Id = 3, Name = "Tajemnice chwalebne" } },
+            new RosaryType { Id = 4, RosaryTypeLocalization = new RosaryTypeLocalization { Id = 4, Name = "Tajemnice światła" } }
         ]);
 
         // Act

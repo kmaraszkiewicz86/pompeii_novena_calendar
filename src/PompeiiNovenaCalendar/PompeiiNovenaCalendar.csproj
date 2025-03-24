@@ -108,28 +108,4 @@
 	  <ProjectReference Include="..\PompeiiNovenaCalendar.Presentation\PompeiiNovenaCalendar.Presentation.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Compile Update="Resources\Localization\Strings.pl.Designer.cs">
-	    <DependentUpon>Strings.pl.resx</DependentUpon>
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	  </Compile>
-	  <Compile Update="Resources\Localization\Strings.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>Strings.resx</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <EmbeddedResource Update="Resources\Localization\Strings.pl.resx">
-	    <LastGenOutput>Strings.pl.Designer.cs</LastGenOutput>
-	    <Generator>ResXFileCodeGenerator</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Resources\Localization\Strings.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
-	    <LastGenOutput>Strings.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
-	</ItemGroup>
-
 </Project>

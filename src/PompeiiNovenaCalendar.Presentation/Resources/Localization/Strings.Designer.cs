@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PompeiiNovenaCalendar.Resources.Localization {
+namespace PompeiiNovenaCalendar.Presentation.Resources.Localization {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace PompeiiNovenaCalendar.Resources.Localization {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings___Copy {
+    internal class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Strings___Copy() {
+        internal Strings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace PompeiiNovenaCalendar.Resources.Localization {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PompeiiNovenaCalendar.Resources.Localization.Strings - Copy", typeof(Strings___Copy).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PompeiiNovenaCalendar.Presentation.Resources.Localization.Strings", typeof(Strings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,7 +61,7 @@ namespace PompeiiNovenaCalendar.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pozostało {DaysLengthToEnd} dni do końca.
+        ///   Looks up a localized string similar to {DaysLengthToEnd} days remaining.
         /// </summary>
         internal static string DaysLengthToEndText {
             get {
@@ -70,7 +70,7 @@ namespace PompeiiNovenaCalendar.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lista dni Nowenny.
+        ///   Looks up a localized string similar to Days of the Pompeian Novena.
         /// </summary>
         internal static string DaysListPageTitle {
             get {
@@ -79,7 +79,16 @@ namespace PompeiiNovenaCalendar.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wybierz datę rzopoczęcia.
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        internal static string Reset {
+            get {
+                return ResourceManager.GetString("Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose start date.
         /// </summary>
         internal static string StartPageTitle {
             get {
