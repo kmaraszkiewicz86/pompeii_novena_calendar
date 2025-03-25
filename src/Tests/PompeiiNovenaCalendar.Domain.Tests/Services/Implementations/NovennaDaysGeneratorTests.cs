@@ -1,6 +1,7 @@
 ﻿using NSubstitute;
 using PompeiiNovenaCalendar.Application.Tests.Fixtures;
 using PompeiiNovenaCalendar.Domain.Database.Entities;
+using PompeiiNovenaCalendar.Domain.Models;
 using PompeiiNovenaCalendar.Domain.Services.Implementations;
 using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
 
@@ -32,11 +33,11 @@ public class NovennaDaysGeneratorTests
         NovennaDaysGenerator generator = _fixture.GetServiceUnderTest();
         var startDate = new DateTime(2024, 3, 1, 0, 0, 0, DateTimeKind.Utc);
         GenerateInialDataCommand command = new(new DateTime(2024, 3, 1, 0, 0, 0, DateTimeKind.Utc));
-        _fixture.RosaryTypesQuery.GetAllRosaryTypesAsync().Returns([
-            new RosaryType { Id = 1, Key = "JoyfulMysteries" },
-            new RosaryType { Id = 2, Key = "SorrowfulMysteries" },
-            new RosaryType { Id = 3, Key = "GloriousMysteries" },
-            new RosaryType { Id = 4, Key = "LuminousMysteries" }
+        _fixture.RosaryTypesQuery.GetAllRosaryTypesAsync(Arg.Any<string>()).Returns([
+            new RosaryTypeModel { Id = 1, Name = "JoyfulMysteries" },
+            new RosaryTypeModel { Id = 2, Name = "SorrowfulMysteries" },
+            new RosaryTypeModel { Id = 3, Name = "GloriousMysteries" },
+            new RosaryTypeModel { Id = 4, Name = "LuminousMysteries" }
         ]);
 
         // Act

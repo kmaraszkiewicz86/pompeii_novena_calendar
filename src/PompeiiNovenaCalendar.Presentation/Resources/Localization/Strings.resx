@@ -129,4 +129,10 @@
   <data name="Reset" xml:space="preserve">
     <value>Reset</value>
   </data>
+  <data name="ChooseStartDateOfNovenna" xml:space="preserve">
+    <value>Choose the start date of the Novenna:</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
 </root>

@@ -3,6 +3,7 @@ using PompeiiNovenaCalendar.Domain.Database;
 using PompeiiNovenaCalendar.Domain.Database.Entities;
 using PompeiiNovenaCalendar.Domain.Database.Repositories;
 using PompeiiNovenaCalendar.Domain.Models;
+using PompeiiNovenaCalendar.Infrastructure.Database.Extensions;
 
 namespace PompeiiNovenaCalendar.Infrastructure.Database.DatabaseQueries
 {
@@ -21,7 +22,7 @@ namespace PompeiiNovenaCalendar.Infrastructure.Database.DatabaseQueries
         {
             await using ISqliteConnectionConnection connection = await queryContext.CreateConnectionAsync();
 
-            Dictionary<string, string> rossaryTypeNames = await GetRosaryTypeLocalization(settings.Language, connection);
+            Dictionary<string, string> rossaryTypeNames = await connection.GetRosaryTypeLocalization(settings.Language);
 
             var sql = @"SELECT dr.*, rs.*, rt.*
                 FROM DayRecords dr
@@ -56,14 +57,6 @@ namespace PompeiiNovenaCalendar.Infrastructure.Database.DatabaseQueries
             var sql = @"SELECT count(*) FROM DayRecords WHERE IsCompleted = 0";
 
             return await connection.Connection.ExecuteScalarAsync<int>(sql);
-        }
-
-        private async Task<Dictionary<string, string>> GetRosaryTypeLocalization(string language, ISqliteConnectionConnection connection)
-        {
-            return (await connection.Connection.QueryAsync<RosaryTypeLocalization>(
-                "SELECT * FROM RosaryTypeLocalizations WHERE Language = @Language",
-                new { Language = language }
-            )).ToDictionary(r => r.Key, r => r.Name);
         }
 
         private IEnumerable<DayRecordCollectionModel> GenerateCollection(DayRecordModel[] daysFromDatabase)

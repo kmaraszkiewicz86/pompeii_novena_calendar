@@ -129,4 +129,10 @@
   <data name="Reset" xml:space="preserve">
     <value>Wyzeruj</value>
   </data>
+  <data name="ChooseStartDateOfNovenna" xml:space="preserve">
+    <value>Wybierz datę rozpoczęcia nowenny:</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Dalej</value>
+  </data>
 </root>

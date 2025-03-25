@@ -13,8 +13,8 @@
                TextColor="#F0544F"
                Margin="20"
                HorizontalTextAlignment="Center" />
-        <Label Text="Wybierz datę rozpoczęcia nowenny:" FontSize="Medium"/>
+        <Label Text="{x:Static Resources:Strings.ChooseStartDateOfNovenna}" FontSize="Medium"/>
         <DatePicker Date="{Binding SelectedDate}" />
-        <Button Text="Dalej" Command="{Binding StartCommand}" />
+        <Button Text="{x:Static Resources:Strings.Next}" Command="{Binding StartCommand}" />
     </VerticalStackLayout>
 </ContentPage>

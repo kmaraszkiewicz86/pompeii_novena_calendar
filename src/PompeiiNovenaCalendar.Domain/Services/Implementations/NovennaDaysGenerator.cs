@@ -1,6 +1,7 @@
 ﻿using FluentResults;
 using PompeiiNovenaCalendar.Domain.Database.Entities;
 using PompeiiNovenaCalendar.Domain.Database.Repositories;
+using PompeiiNovenaCalendar.Domain.Models;
 using PompeiiNovenaCalendar.Domain.Services.Interfaces;
 using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
 
@@ -9,14 +10,15 @@ namespace PompeiiNovenaCalendar.Domain.Services.Implementations
     public class NovennaDaysGenerator(
         IUnitOfWork unitOfWork, 
         IDayRecordRepository repository, 
-        IRosaryTypesQuery rosaryTypesQuery
+        IRosaryTypesQuery rosaryTypesQuery,
+        LanguageSettings settings
     ) : INovennaDaysGenerator
     {
         public const int NovennaDayLenght = 54;
 
         public async Task<Result> GenerateInitialDataAsync(GenerateInialDataCommand request)
         {
-            RosaryType[] rosaryTypes = await rosaryTypesQuery.GetAllRosaryTypesAsync();
+            RosaryTypeModel[] rosaryTypes = await rosaryTypesQuery.GetAllRosaryTypesAsync(settings.Language);
 
             List<DayRecord> dayRecords = new();
 

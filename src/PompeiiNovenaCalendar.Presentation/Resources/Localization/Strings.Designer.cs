@@ -61,6 +61,15 @@ namespace PompeiiNovenaCalendar.Presentation.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose the start date of the Novenna:.
+        /// </summary>
+        internal static string ChooseStartDateOfNovenna {
+            get {
+                return ResourceManager.GetString("ChooseStartDateOfNovenna", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {DaysLengthToEnd} days remaining.
         /// </summary>
         internal static string DaysLengthToEndText {
@@ -75,6 +84,15 @@ namespace PompeiiNovenaCalendar.Presentation.Resources.Localization {
         internal static string DaysListPageTitle {
             get {
                 return ResourceManager.GetString("DaysListPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        internal static string Next {
+            get {
+                return ResourceManager.GetString("Next", resourceCulture);
             }
         }
         
