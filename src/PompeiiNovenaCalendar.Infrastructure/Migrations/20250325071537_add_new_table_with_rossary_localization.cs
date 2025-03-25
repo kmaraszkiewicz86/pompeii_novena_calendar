@@ -49,8 +49,8 @@ namespace PompeiiNovenaCalendar.Infrastructure.Migrations
                     { 4, "LuminousMysteries", "pl", "Tajemnice światła" },
                     { 5, "JoyfulMysteries", "en", "Joyful Mysteries" },
                     { 6, "SorrowfulMysteries", "en", "Sorrowful Mysteries" },
-                    { 7, "LuminousMysteries", "en", "Glorious Mysteries" },
-                    { 8, "SorrowfulMysteries", "en", "Luminous Mysteries" }
+                    { 7, "GloriousMysteries", "en", "Glorious Mysteries" },
+                    { 8, "LuminousMysteries", "en", "Luminous Mysteries" }
                 });
 
             migrationBuilder.UpdateData(

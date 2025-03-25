@@ -11,7 +11,7 @@ using PompeiiNovenaCalendar.Infrastructure.Database;
 namespace PompeiiNovenaCalendar.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250324084518_add_new_table_with_rossary_localization")]
+    [Migration("20250325071537_add_new_table_with_rossary_localization")]
     partial class add_new_table_with_rossary_localization
     {
         /// <inheritdoc />
@@ -168,14 +168,14 @@ namespace PompeiiNovenaCalendar.Infrastructure.Migrations
                         new
                         {
                             Id = 7,
-                            Key = "LuminousMysteries",
+                            Key = "GloriousMysteries",
                             Language = "en",
                             Name = "Glorious Mysteries"
                         },
                         new
                         {
                             Id = 8,
-                            Key = "SorrowfulMysteries",
+                            Key = "LuminousMysteries",
                             Language = "en",
                             Name = "Luminous Mysteries"
                         });

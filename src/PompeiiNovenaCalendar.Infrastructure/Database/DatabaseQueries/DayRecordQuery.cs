@@ -27,13 +27,12 @@ namespace PompeiiNovenaCalendar.Infrastructure.Database.DatabaseQueries
             var sql = @"SELECT dr.*, rs.*, rt.*
                 FROM DayRecords dr
                 INNER JOIN RosarySelections rs ON dr.Id = rs.DayRecordId
-                INNER JOIN RosaryTypes rt ON rs.RosaryTypeId = rt.Id
-                INNER JOIN RosaryTypeLocalizations rtl ON rt.RosaryTypeLocalizationId = rtl.Id              
+                INNER JOIN RosaryTypes rt ON rs.RosaryTypeId = rt.Id           
                 ORDER BY dr.Date";
 
-            DayRecordModel[] daysFromDatabase = [.. (await connection.Connection.QueryAsync<DayRecord, RosarySelection, RosaryType, RosaryTypeLocalization, DayRecordModel>(
+            DayRecordModel[] daysFromDatabase = [.. (await connection.Connection.QueryAsync<DayRecord, RosarySelection, RosaryType, DayRecordModel>(
                 sql,
-                (dayRecord, rosarySelection, rosaryType, rosaryTypeLocalization) =>
+                (dayRecord, rosarySelection, rosaryType) =>
                 {
                     return new DayRecordModel
                     {

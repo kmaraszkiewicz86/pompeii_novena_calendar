@@ -165,14 +165,14 @@ namespace PompeiiNovenaCalendar.Infrastructure.Migrations
                         new
                         {
                             Id = 7,
-                            Key = "LuminousMysteries",
+                            Key = "GloriousMysteries",
                             Language = "en",
                             Name = "Glorious Mysteries"
                         },
                         new
                         {
                             Id = 8,
-                            Key = "SorrowfulMysteries",
+                            Key = "LuminousMysteries",
                             Language = "en",
                             Name = "Luminous Mysteries"
                         });
