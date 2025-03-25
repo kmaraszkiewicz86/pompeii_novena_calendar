@@ -135,4 +135,10 @@
   <data name="Next" xml:space="preserve">
     <value>Dalej</value>
   </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Zwiń</value>
+  </data>
+  <data name="Expand" xml:space="preserve">
+    <value>Rozwiń</value>
+  </data>
 </root>

@@ -70,7 +70,16 @@ namespace PompeiiNovenaCalendar.Presentation.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {DaysLengthToEnd} days remaining.
+        ///   Looks up a localized string similar to Collapse.
+        /// </summary>
+        internal static string Collapse {
+            get {
+                return ResourceManager.GetString("Collapse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} days remaining.
         /// </summary>
         internal static string DaysLengthToEndText {
             get {
@@ -84,6 +93,15 @@ namespace PompeiiNovenaCalendar.Presentation.Resources.Localization {
         internal static string DaysListPageTitle {
             get {
                 return ResourceManager.GetString("DaysListPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expand.
+        /// </summary>
+        internal static string Expand {
+            get {
+                return ResourceManager.GetString("Expand", resourceCulture);
             }
         }
         

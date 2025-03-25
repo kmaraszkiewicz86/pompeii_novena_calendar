@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using PompeiiNovenaCalendar.Domain.Models;
+using PompeiiNovenaCalendar.Presentation.Resources.Localization;
 
 namespace PompeiiNovenaCalendar.Presentation.ViewModels
 {
@@ -13,6 +15,8 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
             IsCompleted = _model.IsCompleted;
         }
 
+        public IRelayCommand ToogleVisibilityCommand => new RelayCommand(ToogleVisibility!);
+
         public int Id => _model.Id;
         public DateTime Day => _model.Day;
         public string StatusName => IsCompleted ? "✔️" : "❌";
@@ -24,12 +28,33 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
             get => _isCompleted;
             set
             {
-                if (_isCompleted != value)
-                {
-                    SetProperty(ref _isCompleted, value);
-                    OnPropertyChanged(nameof(StatusName));
-                }
+                SetProperty(ref _isCompleted, value);
+                OnPropertyChanged(nameof(StatusName));
+
+                if (!_isForceVisible)
+                    IsVisible = !value;
             }
+        }
+
+        private bool _isForceVisible;
+        private bool _isVisible;
+
+        public bool IsVisible
+        {
+            get => _isVisible;
+            set
+            {
+                SetProperty(ref _isVisible, value);
+                OnPropertyChanged(nameof(VisibilityButtonText));
+            }
+        }
+
+        public string VisibilityButtonText => IsVisible ? Strings.Collapse : Strings.Expand;
+
+        private void ToogleVisibility()
+        {
+            IsVisible = !IsVisible;
+            _isForceVisible = true;
         }
     }
 }

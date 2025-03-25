@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using FluentResults;
 using MediatR;
 using PompeiiNovenaCalendar.Domain.Models;
+using PompeiiNovenaCalendar.Presentation.Resources.Localization;
 using PompeiiNovenaCalendar.Presentation.Views;
 using PompeiiNovenaCalendar.Shared.Models.Handlers.Commands;
 using PompeiiNovenaCalendar.Shared.Models.Handlers.Queries;
@@ -38,7 +39,7 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
             }
         }
 
-        public string DaysLengthToEndText => $"Pozostało {DaysLengthToEnd} dni do końca";
+        public string DaysLengthToEndText => string.Format(Strings.DaysLengthToEndText, DaysLengthToEnd);
 
         private ObservableCollection<DayRecordViewModel> _days = new();
 
@@ -49,6 +50,7 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
         }
 
         public IRelayCommand<RosarySelectionModel> ToogleRossarySelectionCommand => new AsyncRelayCommand<RosarySelectionModel>(ToogleRossarySelectionAsync!);
+
         public IRelayCommand LoadCommand => new AsyncRelayCommand(LoadDaysAsync);
         public IRelayCommand GetDaysLengthToEndCommand => new AsyncRelayCommand(GetDaysLengthToEndAsync);
         public IRelayCommand ResetDaysCommand => new AsyncRelayCommand(ResetDaysAsync);
@@ -57,7 +59,7 @@ namespace PompeiiNovenaCalendar.Presentation.ViewModels
         {
             IEnumerable<DayRecordCollectionModel> days = await mediator.Send(new GetAllDayRecordsAsyncQuery());
 
-            foreach (DayRecordCollectionModel day in days) 
+            foreach (DayRecordCollectionModel day in days)
             {
                 DayRecordViewModel? dayFromView = Days.FirstOrDefault(d => d.Day == day.Day);
                 if (dayFromView is null)
