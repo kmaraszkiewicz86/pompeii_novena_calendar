@@ -2,9 +2,12 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:Resources="clr-namespace:PompeiiNovenaCalendar.Presentation.Resources.Localization"
+             xmlns:Behaviors="clr-namespace:PompeiiNovenaCalendar.Presentation.Behaviors"
              x:Class="PompeiiNovenaCalendar.Presentation.Views.DaysListPage"
-             Appearing="ContentPage_Appearing"
              Title="{x:Static Resources:Strings.DaysListPageTitle}">
+    <ContentPage.Behaviors>
+        <Behaviors:EventToCommandBehavior EventName="Appearing" Command="{Binding LoadCommand}" />
+    </ContentPage.Behaviors>
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="{Binding DaysLengthToEndText}"
                      Order="Primary"

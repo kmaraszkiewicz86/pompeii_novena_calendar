@@ -1,145 +1,138 @@
-﻿using System.Globalization;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Windows.Input;
 
-namespace PompeiiNovenaCalendar.Presentation.Behaviors;
-
-/// <summary>
-/// The <see cref="EventToCommandBehavior"/> is a behavior that allows the user to invoke a <see cref="ICommand"/> through an event. It is designed to associate Commands to events exposed by controls that were not designed to support Commands. It allows you to map any arbitrary event on a control to a Command.
-/// </summary>
-public partial class EventToCommandBehavior : BaseBehavior<VisualElement>
+namespace PompeiiNovenaCalendar.Presentation.Behaviors
 {
-    /// <summary>
-    /// Backing BindableProperty for the <see cref="EventName"/> property.
-    /// </summary>
-    public static readonly BindableProperty EventNameProperty =
-        BindableProperty.Create(nameof(EventName), typeof(string), typeof(EventToCommandBehavior), propertyChanged: OnEventNamePropertyChanged);
-
-    /// <summary>
-    /// Backing BindableProperty for the <see cref="Command"/> property.
-    /// </summary>
-    public static readonly BindableProperty CommandProperty =
-        BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(EventToCommandBehavior));
-
-    /// <summary>
-    /// Backing BindableProperty for the <see cref="CommandParameter"/> property.
-    /// </summary>
-    public static readonly BindableProperty CommandParameterProperty =
-        BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(EventToCommandBehavior));
-
-    /// <summary>
-    /// Backing BindableProperty for the <see cref="EventArgs"/> property.
-    /// </summary>
-    public static readonly BindableProperty EventArgsConverterProperty =
-        BindableProperty.Create(nameof(EventArgsConverter), typeof(IValueConverter), typeof(EventToCommandBehavior));
-
-    readonly MethodInfo eventHandlerMethodInfo = typeof(EventToCommandBehavior).GetTypeInfo().GetDeclaredMethod(nameof(OnTriggerHandled)) ?? throw new InvalidOperationException($"Cannot find method {nameof(OnTriggerHandled)}");
-
-    Delegate? eventHandler;
-
-    EventInfo? eventInfo;
-
-    /// <summary>
-    /// The name of the event that should be associated with <see cref="Command"/>. This is bindable property.
-    /// </summary>
-    public string? EventName
+    public class EventToCommandBehavior : BehaviorBase<VisualElement>
     {
-        get => (string?)GetValue(EventNameProperty);
-        set => SetValue(EventNameProperty, value);
-    }
+        Delegate eventHandler = default!;
 
-    /// <summary>
-    /// The Command that should be executed when the event configured with <see cref="EventName"/> is triggered. This is a bindable property.
-    /// </summary>
-    public ICommand? Command
-    {
-        get => (ICommand?)GetValue(CommandProperty);
-        set => SetValue(CommandProperty, value);
-    }
+        public static readonly BindableProperty EventNameProperty = BindableProperty.Create("EventName", typeof(string), typeof(EventToCommandBehavior), null, propertyChanged: OnEventNameChanged);
+        public static readonly BindableProperty CommandProperty = BindableProperty.Create("Command", typeof(ICommand), typeof(EventToCommandBehavior), null);
+        public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create("CommandParameter", typeof(object), typeof(EventToCommandBehavior), null);
+        public static readonly BindableProperty InputConverterProperty = BindableProperty.Create("Converter", typeof(IValueConverter), typeof(EventToCommandBehavior), null);
 
-    /// <summary>
-    /// An optional parameter to forward to the <see cref="Command"/>. This is a bindable property.
-    /// </summary>
-    public object? CommandParameter
-    {
-        get => GetValue(CommandParameterProperty);
-        set => SetValue(CommandParameterProperty, value);
-    }
-
-    /// <summary>
-    /// An optional <see cref="ICommunityToolkitValueConverter"/> that can be used to convert <see cref="EventArgs"/> values, associated with the event configured with <see cref="EventName"/>, to values passed into the <see cref="Command"/>. This is a bindable property.
-    /// </summary>
-    public IValueConverter? EventArgsConverter
-    {
-        get => (IValueConverter?)GetValue(EventArgsConverterProperty);
-        set => SetValue(EventArgsConverterProperty, value);
-    }
-
-    /// <inheritdoc/>
-    protected override void OnAttachedTo(VisualElement bindable)
-    {
-        base.OnAttachedTo(bindable);
-        RegisterEvent();
-    }
-
-    /// <inheritdoc/>
-    protected override void OnDetachingFrom(VisualElement bindable)
-    {
-        UnregisterEvent();
-        base.OnDetachingFrom(bindable);
-    }
-
-    static void OnEventNamePropertyChanged(BindableObject bindable, object oldValue, object newValue)
-        => ((EventToCommandBehavior)bindable).RegisterEvent();
-
-    void RegisterEvent()
-    {
-        UnregisterEvent();
-
-        var eventName = EventName;
-        if (View is null || string.IsNullOrWhiteSpace(eventName))
+        public string EventName
         {
-            return;
+            get { return (string)GetValue(EventNameProperty); }
+            set { SetValue(EventNameProperty, value); }
         }
 
-        eventInfo = View.GetType().GetRuntimeEvent(eventName) ??
-            throw new ArgumentException($"{nameof(EventToCommandBehavior)}: Couldn't resolve the event.", nameof(EventName));
-
-        ArgumentNullException.ThrowIfNull(eventInfo.EventHandlerType);
-        ArgumentNullException.ThrowIfNull(eventHandlerMethodInfo);
-
-        eventHandler = eventHandlerMethodInfo.CreateDelegate(eventInfo.EventHandlerType, this) ??
-            throw new ArgumentException($"{nameof(EventToCommandBehavior)}: Couldn't create event handler.", nameof(EventName));
-
-        eventInfo.AddEventHandler(View, eventHandler);
-    }
-
-    void UnregisterEvent()
-    {
-        if (eventInfo is not null && eventHandler is not null)
+        public ICommand Command
         {
-            eventInfo.RemoveEventHandler(View, eventHandler);
+            get { return (ICommand)GetValue(CommandProperty); }
+            set { SetValue(CommandProperty, value); }
         }
 
-        eventInfo = null;
-        eventHandler = null;
-    }
-
-    /// <summary>
-    /// Virtual method that executes when a Command is invoked
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="eventArgs"></param>
-    [Microsoft.Maui.Controls.Internals.Preserve(Conditional = true)]
-    protected virtual void OnTriggerHandled(object? sender = null, object? eventArgs = null)
-    {
-        var parameter = CommandParameter
-            ?? EventArgsConverter?.Convert(eventArgs, typeof(object), null, CultureInfo.InvariantCulture);
-
-        var command = Command;
-        if (command?.CanExecute(parameter) ?? false)
+        public object CommandParameter
         {
-            command.Execute(parameter);
+            get { return GetValue(CommandParameterProperty); }
+            set { SetValue(CommandParameterProperty, value); }
+        }
+
+        public IValueConverter Converter
+        {
+            get { return (IValueConverter)GetValue(InputConverterProperty); }
+            set { SetValue(InputConverterProperty, value); }
+        }
+
+        protected override void OnAttachedTo(VisualElement bindable)
+        {
+            base.OnAttachedTo(bindable);
+            RegisterEvent(EventName);
+        }
+
+        protected override void OnDetachingFrom(VisualElement bindable)
+        {
+            DeregisterEvent(EventName);
+            base.OnDetachingFrom(bindable);
+        }
+
+        void RegisterEvent(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                return;
+            }
+
+            EventInfo eventInfo = AssociatedObject.GetType().GetRuntimeEvent(name);
+            if (eventInfo == null)
+            {
+                throw new ArgumentException(string.Format("EventToCommandBehavior: Can't register the '{0}' event.", EventName));
+            }
+            MethodInfo methodInfo = typeof(EventToCommandBehavior).GetTypeInfo().GetDeclaredMethod("OnEvent");
+            eventHandler = methodInfo.CreateDelegate(eventInfo.EventHandlerType, this);
+            eventInfo.AddEventHandler(AssociatedObject, eventHandler);
+        }
+
+        void DeregisterEvent(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                return;
+            }
+
+            if (eventHandler == null)
+            {
+                return;
+            }
+            EventInfo eventInfo = AssociatedObject.GetType().GetRuntimeEvent(name);
+            if (eventInfo == null)
+            {
+                throw new ArgumentException(string.Format("EventToCommandBehavior: Can't de-register the '{0}' event.", EventName));
+            }
+            eventInfo.RemoveEventHandler(AssociatedObject, eventHandler);
+            eventHandler = null;
+        }
+
+        void OnEvent(object sender, object eventArgs)
+        {
+            if (Command == null)
+            {
+                return;
+            }
+
+            object resolvedParameter;
+
+            if (CommandParameter != null)
+            {
+                resolvedParameter = CommandParameter;
+            }
+            else if (Converter != null)
+            {
+                resolvedParameter = Converter.Convert(eventArgs, typeof(object), null, null);
+            }
+            else
+            {
+                resolvedParameter = eventArgs;
+            }
+
+            if (Command.CanExecute(resolvedParameter))
+            {
+                if (resolvedParameter != null && bool.TryParse(resolvedParameter.ToString(), out bool booleanParameter))
+                {
+                    Command.Execute(booleanParameter);
+                }
+                else
+                {
+                    Command.Execute(resolvedParameter);
+                }
+            }
+        }
+
+        static void OnEventNameChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var behavior = (EventToCommandBehavior)bindable;
+            if (behavior.AssociatedObject == null)
+            {
+                return;
+            }
+
+            string oldEventName = (string)oldValue;
+            string newEventName = (string)newValue;
+
+            behavior.DeregisterEvent(oldEventName);
+            behavior.RegisterEvent(newEventName);
         }
     }
 }

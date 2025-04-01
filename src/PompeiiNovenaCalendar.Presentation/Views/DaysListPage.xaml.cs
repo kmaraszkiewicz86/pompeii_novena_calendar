@@ -1,4 +1,3 @@
-using PompeiiNovenaCalendar.Domain.Database.Entities;
 using PompeiiNovenaCalendar.Domain.Models;
 using PompeiiNovenaCalendar.Presentation.ViewModels;
 
@@ -12,11 +11,6 @@ public partial class DaysListPage : ContentPage
 	{
 		InitializeComponent();
         BindingContext = _bindingContext = bindingContext;
-    }
-
-    private void ContentPage_Appearing(object sender, EventArgs e)
-    {
-        _bindingContext.LoadCommand.Execute(null);
     }
 
     private void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
