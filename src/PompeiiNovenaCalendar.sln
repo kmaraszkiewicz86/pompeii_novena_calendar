@@ -5,25 +5,25 @@ VisualStudioVersion = 17.13.35806.99
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar", "PompeiiNovenaCalendar.csproj", "{1A645EDB-633D-4E86-BC38-7A3694101F0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.Presentation", "..\PompeiiNovenaCalendar.Presentation\PompeiiNovenaCalendar.Presentation.csproj", "{E6DCB9D0-501C-430C-89E9-CF26FA047443}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.Presentation", "PompeiiNovenaCalendar.Presentation\PompeiiNovenaCalendar.Presentation.csproj", "{E6DCB9D0-501C-430C-89E9-CF26FA047443}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.Domain", "..\PompeiiNovenaCalendar.Domain\PompeiiNovenaCalendar.Domain.csproj", "{C69EC23C-FED6-439D-BF06-C9991A059C12}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.Domain", "PompeiiNovenaCalendar.Domain\PompeiiNovenaCalendar.Domain.csproj", "{C69EC23C-FED6-439D-BF06-C9991A059C12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.Infrastructure", "..\PompeiiNovenaCalendar.Infrastructure\PompeiiNovenaCalendar.Infrastructure.csproj", "{C51DE0DE-99E5-49AB-ACF6-E6998DEB1236}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.Infrastructure", "PompeiiNovenaCalendar.Infrastructure\PompeiiNovenaCalendar.Infrastructure.csproj", "{C51DE0DE-99E5-49AB-ACF6-E6998DEB1236}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.Shared", "..\PompeiiNovenaCalendar.Shared\PompeiiNovenaCalendar.Shared.csproj", "{CFFB3A23-09C6-4515-9685-CF5AF934BCEB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.Shared", "PompeiiNovenaCalendar.Shared\PompeiiNovenaCalendar.Shared.csproj", "{CFFB3A23-09C6-4515-9685-CF5AF934BCEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.ApplicationLayer", "..\PompeiiNovenaCalendar.Application\PompeiiNovenaCalendar.ApplicationLayer.csproj", "{D0B77F10-CA49-4121-8128-EFF7B545F2AE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.ApplicationLayer", "PompeiiNovenaCalendar.Application\PompeiiNovenaCalendar.ApplicationLayer.csproj", "{D0B77F10-CA49-4121-8128-EFF7B545F2AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.DependencyInjection", "..\PompeiiNovenaCalendar.DependencyInjection\PompeiiNovenaCalendar.DependencyInjection.csproj", "{9AD6D543-494F-4248-9756-3F89C901CCA3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.DependencyInjection", "PompeiiNovenaCalendar.DependencyInjection\PompeiiNovenaCalendar.DependencyInjection.csproj", "{9AD6D543-494F-4248-9756-3F89C901CCA3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.Application.Tests", "..\Tests\PompeiiNovenaCalendar.Application.Tests\PompeiiNovenaCalendar.Application.Tests.csproj", "{D02A1876-99AE-4DFC-A9B1-E3F8AEC50F33}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.Application.Tests", "Tests\PompeiiNovenaCalendar.Application.Tests\PompeiiNovenaCalendar.Application.Tests.csproj", "{D02A1876-99AE-4DFC-A9B1-E3F8AEC50F33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.Domain.Tests", "..\Tests\PompeiiNovenaCalendar.Domain.Tests\PompeiiNovenaCalendar.Domain.Tests.csproj", "{76418393-A309-46A8-B4D5-351E9C0C3556}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.Domain.Tests", "Tests\PompeiiNovenaCalendar.Domain.Tests\PompeiiNovenaCalendar.Domain.Tests.csproj", "{76418393-A309-46A8-B4D5-351E9C0C3556}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.Shared.Tests", "..\Tests\PompeiiNovenaCalendar.Tests\PompeiiNovenaCalendar.Shared.Tests.csproj", "{53859DA2-A235-4B62-9B06-F901634EC189}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PompeiiNovenaCalendar.Shared.Tests", "Tests\PompeiiNovenaCalendar.Tests\PompeiiNovenaCalendar.Shared.Tests.csproj", "{53859DA2-A235-4B62-9B06-F901634EC189}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

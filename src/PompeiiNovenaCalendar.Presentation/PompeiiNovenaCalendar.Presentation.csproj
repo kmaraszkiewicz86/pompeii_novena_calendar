@@ -19,6 +19,24 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <AndroidJavaSource Remove="Localization\**" />
+	  <AndroidLibrary Remove="Localization\**" />
+	  <AndroidNativeLibrary Remove="Localization\**" />
+	  <AndroidResource Remove="Models\**" />
+	  <Compile Remove="Localization\**" />
+	  <Compile Remove="Models\**" />
+	  <EmbeddedResource Remove="Localization\**" />
+	  <EmbeddedResource Remove="Models\**" />
+	  <JavaSourceJar Remove="Localization\**" />
+	  <MauiCss Remove="Models\**" />
+	  <MauiXaml Remove="Models\**" />
+	  <None Remove="Localization\**" />
+	  <None Remove="Models\**" />
+	  <ProguardConfiguration Remove="Localization\**" />
+	  <TransformFile Remove="Localization\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="FluentValidation" Version="11.11.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
@@ -39,11 +57,6 @@
 	  <MauiXaml Update="Views\StartPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Models\" />
-	  <Folder Include="Localization\" />
 	</ItemGroup>
 
 	<ItemGroup>
