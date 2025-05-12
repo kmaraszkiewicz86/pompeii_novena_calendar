@@ -64,6 +64,11 @@ namespace PompeiiNovenaCalendar.Infrastructure.Database.DatabaseQueries
 
             foreach (DayRecordModel dayFromDb in daysFromDatabase)
             {
+                if (dayFromDb.Day > DateTime.UtcNow)
+                {
+                    break;
+                }
+
                 DayRecordCollectionModel? day = days.FirstOrDefault(d => d.Id == dayFromDb.Id);
 
                 if (day is null)

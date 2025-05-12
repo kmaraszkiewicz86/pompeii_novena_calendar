@@ -9,51 +9,53 @@
         <Behaviors:EventToCommandBehavior EventName="Appearing" Command="{Binding LoadCommand}" />
     </ContentPage.Behaviors>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="{Binding DaysLengthToEndText}"
-                     Order="Primary"
-                     Priority="0"
-                     />
         <ToolbarItem Text="{x:Static Resources:Strings.Reset}"
                      IconImageSource="remove_icon.png"
                      Command="{Binding ResetDaysCommand}" />
     </ContentPage.ToolbarItems>
-    <CollectionView ItemsSource="{Binding Days}">
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <StackLayout Padding="10" >
-                    <Grid Margin="10" ColumnDefinitions="2*, 1*, 1*" >
-                        <Label Grid.Column="0" 
-                               FontSize="Medium" 
-                               HorizontalTextAlignment="Center" 
-                               Margin="5, 15" 
-                               Text="{Binding Day, StringFormat='{0:dddd, dd MMMM}'}" />
-                        <Button Grid.Column="1" 
-                                FontSize="Medium" 
-                                Margin="5, 0" 
-                                Text="{Binding VisibilityButtonText}" 
-                                Command="{Binding ToogleVisibilityCommand}" />
-                        <Label Grid.Column="2" Margin="5, 15" FontSize="Medium" HorizontalTextAlignment="End" Text="{Binding StatusName}" />
-                    </Grid>
-                    <StackLayout>
+    <StackLayout>
+        <CollectionView ItemsSource="{Binding Days}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10" >
+                        <Grid Margin="10" ColumnDefinitions="2*, 1*, 1*" >
+                            <Label Grid.Column="0" 
+                           FontSize="Medium" 
+                           HorizontalTextAlignment="Center" 
+                           Margin="5, 15" 
+                           Text="{Binding Day, StringFormat='{0:dddd, dd MMMM}'}" />
+                            <Button Grid.Column="1" 
+                            FontSize="Medium" 
+                            Margin="5, 0" 
+                            Text="{Binding VisibilityButtonText}" 
+                            Command="{Binding ToogleVisibilityCommand}" />
+                            <Label Grid.Column="2" Margin="5, 15" FontSize="Medium" HorizontalTextAlignment="End" Text="{Binding StatusName}" />
+                        </Grid>
+                        <StackLayout>
 
-                        <CollectionView IsVisible="{Binding IsVisible}" ItemsSource="{Binding RosarySelections}" x:Name="RosaryCollection">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackLayout Orientation="Horizontal" >
-                                        <CheckBox 
-                                            IsChecked="{Binding IsCompleted}"  
-                                            CheckedChanged="CheckBox_CheckedChanged"
-                                            AutomationId="{Binding Id}"
-                                            Margin="50, 0, 0, 0" />
-                                        <Label Text="{Binding Name}" FontSize="Medium" Margin="15, 5, 0, 0"/>
-                                    </StackLayout>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
+                            <CollectionView IsVisible="{Binding IsVisible}" ItemsSource="{Binding RosarySelections}" x:Name="RosaryCollection">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout Orientation="Horizontal" >
+                                            <CheckBox 
+                                        IsChecked="{Binding IsCompleted}"  
+                                        CheckedChanged="CheckBox_CheckedChanged"
+                                        AutomationId="{Binding Id}"
+                                        Margin="50, 0, 0, 0" />
+                                            <Label Text="{Binding Name}" FontSize="Medium" Margin="15, 5, 0, 0"/>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
 
+                        </StackLayout>
                     </StackLayout>
-                </StackLayout>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Grid Margin="5" ColumnDefinitions="*, Auto">
+            <Label Grid.Column="0" Text="{Binding DaysLengthToEndText}" />
+            <Label Grid.Column="1" Text="Data zakończenia: 20.10.2028" />
+        </Grid>
+    </StackLayout>
 </ContentPage>
